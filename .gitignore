@@ -1,0 +1,8 @@
+.godot/
+source/.godot/
+release/*.exe
+release/*.pck
+release/*.zip
+*.tmp
+*.log
+*.translation

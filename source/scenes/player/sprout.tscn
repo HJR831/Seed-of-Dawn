@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scenes/player/sprout.gd" id="1_sprout"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_head"]
+radius = 17.0
+
+[node name="Sprout" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_sprout")
+
+[node name="HeadCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_head")
+
+[node name="Trail" type="Line2D" parent="."]
+top_level = true
+z_index = -1
+width = 18.0
+default_color = Color(0.52, 0.16, 0.84, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+antialiased = true
+
+[node name="LocalLight" type="PointLight2D" parent="."]
+energy = 2.4
+texture_scale = 3.6
+color = Color(0.72, 0.46, 1, 1)
+shadow_enabled = false
+
+[node name="Camera2D" type="Camera2D" parent="."]
+enabled = true
+position_smoothing_enabled = true
+position_smoothing_speed = 7.0
+limit_left = 0
+limit_top = 0
+limit_right = 1280
+limit_bottom = 3300
