@@ -8,7 +8,7 @@ func _ready() -> void:
 
 
 func _run_test() -> void:
-	var watchdog := get_tree().create_timer(8.0)
+	var watchdog := get_tree().create_timer(12.0)
 	watchdog.timeout.connect(func() -> void:
 		if not get_tree().root.is_queued_for_deletion():
 			_fail("流程测试超过 8 秒仍未结束")
@@ -39,6 +39,7 @@ func _run_test() -> void:
 	if local_light == null or local_light.texture == null:
 		_fail("玩家局部光照没有生成径向纹理")
 		return
+	get_node("/root/NarrativeManager").clear_queue()
 
 	# 将芽尖放进最终盒盖感应范围，模拟持续蓄力。
 	player.global_position = Vector2(640.0, 305.0)

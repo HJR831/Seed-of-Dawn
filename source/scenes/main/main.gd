@@ -12,6 +12,7 @@ const ACTION_KEYS := {
 	&"charge": [KEY_SPACE],
 	&"restart_run": [KEY_R],
 	&"pause": [KEY_ESCAPE],
+	&"skip_text": [KEY_ENTER, KEY_SPACE],
 	&"debug_toggle": [KEY_F3],
 }
 

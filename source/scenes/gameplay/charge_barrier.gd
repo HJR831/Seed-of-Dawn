@@ -29,7 +29,9 @@ func _physics_process(delta: float) -> void:
 	if is_broken:
 		return
 
-	if player_inside and Input.is_action_pressed(&"charge"):
+	var narrative := get_node_or_null("/root/NarrativeManager")
+	var text_is_active: bool = narrative != null and narrative.is_text_active()
+	if player_inside and not text_is_active and Input.is_action_pressed(&"charge"):
 		charge_seconds = minf(charge_seconds + delta, required_hold_seconds)
 	else:
 		charge_seconds = maxf(charge_seconds - delta * 1.6, 0.0)
@@ -95,6 +97,14 @@ func _break_barrier() -> void:
 	if is_broken:
 		return
 	is_broken = true
+	var game_state := get_node_or_null("/root/GameState")
+	if game_state != null:
+		game_state.increment_counter(&"film_broken_count" if not is_final_barrier else &"lid_open_count")
+		if not is_final_barrier:
+			game_state.add_stat(&"destruction", 1)
+	var audio := get_node_or_null("/root/AudioManager")
+	if audio != null:
+		audio.play_sfx(&"barrier_break")
 	prompt.visible = false
 	solid_collision.set_deferred("disabled", true)
 	sensor.set_deferred("monitoring", false)
@@ -129,4 +139,3 @@ func _rectangle_polygon(size: Vector2) -> PackedVector2Array:
 		Vector2(half.x, half.y),
 		Vector2(-half.x, half.y),
 	])
-

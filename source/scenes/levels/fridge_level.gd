@@ -11,6 +11,13 @@ const DEFAULT_ENDING_ID: StringName = &"ending_01_food_failure"
 
 const SPROUT_SCENE := preload("res://scenes/player/sprout.tscn")
 const BARRIER_SCENE := preload("res://scenes/gameplay/charge_barrier.tscn")
+const STICKY_AREA_SCENE := preload("res://scenes/gameplay/sticky_area.tscn")
+const FROST_AREA_SCENE := preload("res://scenes/gameplay/frost_area.tscn")
+const PICKUP_SCENE := preload("res://scenes/gameplay/pickup.tscn")
+const INTERACTABLE_SCENE := preload("res://scenes/gameplay/interactable.tscn")
+const NARRATIVE_TRIGGER_SCENE := preload("res://scenes/gameplay/narrative_trigger.tscn")
+const DIALOGUE_BOX_SCENE := preload("res://scenes/ui/dialogue_box.tscn")
+const DEBUG_PANEL_SCENE := preload("res://scenes/ui/debug_panel.tscn")
 
 var player: CharacterBody2D
 var progress_label: Label
@@ -24,7 +31,10 @@ func _ready() -> void:
 	_build_world_labels()
 	_spawn_player()
 	_build_charge_barriers()
+	_build_material_feedback()
+	_build_interactions()
 	_build_hud()
+	_build_narrative()
 	queue_redraw()
 
 
@@ -116,12 +126,76 @@ func _build_charge_barriers() -> void:
 
 
 func _on_barrier_broken(is_final: bool) -> void:
-	if not is_final or ending_started:
+	if not is_final:
+		var narrative := get_node_or_null("/root/NarrativeManager")
+		if narrative != null:
+			narrative.request_text(&"film_broken")
+		return
+	if ending_started:
 		return
 	ending_started = true
 	set_player_input_enabled(false)
+	var narrative := get_node_or_null("/root/NarrativeManager")
+	if narrative != null:
+		narrative.clear_queue()
 	await get_tree().create_timer(0.45).timeout
 	ending_requested.emit(DEFAULT_ENDING_ID)
+
+
+func _build_material_feedback() -> void:
+	var sticky := STICKY_AREA_SCENE.instantiate()
+	sticky.name = "RottenSlime"
+	sticky.position = Vector2(780, 2820)
+	sticky.area_size = Vector2(420, 230)
+	add_child(sticky)
+
+	var frost := FROST_AREA_SCENE.instantiate()
+	frost.name = "FrostPatch"
+	frost.position = Vector2(1010, 1120)
+	frost.area_size = Vector2(260, 230)
+	add_child(frost)
+
+
+func _build_interactions() -> void:
+	var clue := PICKUP_SCENE.instantiate()
+	clue.name = "DateTabletPickup"
+	clue.position = Vector2(230, 2670)
+	clue.item_id = &"date_tablet"
+	clue.display_name_myth = "古代数字石片"
+	clue.display_name_real = "褪色日期贴纸"
+	clue.narrative_text_id = &"pickup_date_tablet"
+	clue.pickup_color = Color(0.91, 0.77, 0.48)
+	add_child(clue)
+
+	var sleeper := INTERACTABLE_SCENE.instantiate()
+	sleeper.name = "SleepingSprout"
+	sleeper.position = Vector2(980, 2640)
+	sleeper.item_id = &"sleeping_sprout"
+	sleeper.display_name_myth = "沉睡的先驱者"
+	sleeper.display_name_real = "蔫软的菜叶"
+	sleeper.short_action = &"nurture"
+	sleeper.hold_action = &"devour"
+	sleeper.narrative_text_id = &"interact_sample"
+	add_child(sleeper)
+
+
+func _build_narrative() -> void:
+	add_child(DIALOGUE_BOX_SCENE.instantiate())
+	add_child(DEBUG_PANEL_SCENE.instantiate())
+	_create_narrative_trigger(&"prologue", Vector2(310, 3040), Vector2(360, 220))
+	_create_narrative_trigger(&"stage_rot", Vector2(640, 2900), Vector2(1000, 180))
+	_create_narrative_trigger(&"stage_film", Vector2(640, 2200), Vector2(1000, 180))
+	_create_narrative_trigger(&"stage_frost", Vector2(640, 1320), Vector2(1000, 180))
+	_create_narrative_trigger(&"stage_final", Vector2(640, 430), Vector2(1000, 160))
+
+
+func _create_narrative_trigger(text_id: StringName, at_position: Vector2, size: Vector2) -> void:
+	var trigger := NARRATIVE_TRIGGER_SCENE.instantiate()
+	trigger.name = "Narrative_%s" % text_id
+	trigger.position = at_position
+	trigger.text_id = text_id
+	trigger.trigger_size = size
+	add_child(trigger)
 
 
 func _build_world_labels() -> void:
@@ -164,7 +238,7 @@ func _build_hud() -> void:
 	controls.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	controls.add_theme_font_size_override("font_size", 19)
 	controls.add_theme_color_override("font_color", Color(0.72, 0.76, 0.86))
-	controls.text = "WASD / 方向键：生长    Space：蓄力    Esc：暂停"
+	controls.text = "WASD / 方向键：生长    E：互动    Space：蓄力/跳字    F3：调试"
 	canvas.add_child(controls)
 
 	var build_tag := Label.new()
@@ -173,7 +247,7 @@ func _build_hud() -> void:
 	build_tag.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	build_tag.add_theme_font_size_override("font_size", 15)
 	build_tag.add_theme_color_override("font_color", Color(0.48, 0.52, 0.65))
-	build_tag.text = "GRAYBOX 0–7H  ·  默认结局"
+	build_tag.text = "GRAYBOX 7–13H  ·  基础系统"
 	canvas.add_child(build_tag)
 
 

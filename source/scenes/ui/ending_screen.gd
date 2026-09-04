@@ -82,4 +82,3 @@ func _build_screen() -> void:
 	restart_button.pressed.connect(func() -> void: restart_requested.emit())
 	add_child(restart_button)
 	restart_button.grab_focus()
-

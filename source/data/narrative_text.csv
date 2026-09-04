@@ -1,0 +1,11 @@
+text_id,chapter,speaker,zh_cn,duration,once_per_run,condition_tag
+prologue,prologue,神谕,"这里是没有黎明的地方。寒冷封住大地，但预言仍在等待。破晓之种，向上。",3.8,true,
+stage_rot,stage_1,芽,"先驱者早已在黑暗中瓦解。它们用腐朽的身躯，为我铺就神圣温床。",3.4,true,
+stage_film,stage_2,芽,"古老而透明的虚空结界。它看不见，却比群山更加坚固。",3.2,true,
+film_broken,stage_2,神谕,"结界破裂时，一行人类集市的封印闪过：特价蔬菜，买一赠一。",3.4,true,
+stage_frost,stage_3,芽,"泰坦巨柱仍在呼唤旧日诸神。大地凝结的霜毒，正在灼烧我的血肉。",3.6,true,
+stage_final,finale,神谕,"破晓就在门外。再向上一步。",2.5,true,
+pickup_date_tablet,stage_1,线索,"古代数字石片上只剩一句：第三个月。",2.6,true,
+pickup_sample,stage_1,神谕,"一缕微光归入根须。",2.0,true,
+interact_sample,stage_1,芽,"沉睡者回应了我的触碰。选择已经被记住。",2.5,true,
+interaction_missing_item,system,神谕,"它没有回应。也许还缺少某件遗物。",2.2,false,

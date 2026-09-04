@@ -19,3 +19,6 @@ func is_ending_unlocked(ending_id: StringName) -> bool:
 func unlocked_count() -> int:
 	return unlocked_endings.size()
 
+
+func clear_unlocked_endings() -> void:
+	unlocked_endings.clear()

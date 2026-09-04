@@ -1,41 +1,44 @@
 # 《破晓之种》Godot 灰盒工程
 
-当前完成 `programming.md` 的第 0–7 小时阶段：
+当前已完成 `programming.md` 的第 0–13 小时阶段。
 
-- 四向平滑移动，支持 WASD 和方向键。
-- 由 Line2D 生成的芽体轨迹。
-- 玩家周围局部紫色光照。
-- 一张纵向冰箱灰盒关卡与四段高度提示。
-- 中途保鲜膜和顶部盒盖的 Space 蓄力交互。
-- 默认结局《生长成功，食用失败》。
-- 结局后点击按钮或按 R 重新开始。
-- Esc 暂停与继续。
+## 已完成
+
+- 四向平滑移动、Line2D 芽体轨迹、局部光照和纵向相机。
+- 从出生点通往盒盖的纵向灰盒关卡、保鲜膜蓄力和默认结局 01。
+- 黏液来源化减速、冰霜减速与霜化变色、硬障碍重撞反馈。
+- 通用 E 短按/长按交互和进入范围自动拾取；对象均保证只成功一次。
+- `GameState` 本局行为值、道具、计数器、旗标、仪式、信号与快照 API。
+- CSV 驱动的四阶段叙事触发、串行文本队列、打字机显示和跳字。
+- Music、Ambience、SFX、UI 四条音频总线；程序占位音与明确的压缩机启动计数。
+- 仅 Debug 构建可用的 F3 状态面板、四阶段传送和快速修改按钮。
+- Esc 暂停、结局后 R 重开；重开会清空本局状态。
 
 ## 在 Godot 中运行
 
-1. 打开 Godot Project Manager。
-2. 点击 **Import**。
-3. 选择本目录中的 `project.godot`。
-4. 确认 Renderer 为 Compatibility。
-5. 点击右上角运行按钮或按 F6/F5。
+1. 使用 Godot 4.7.2 Standard 导入本目录中的 `project.godot`。
+2. 确认 Renderer 为 Compatibility。
+3. 点击运行按钮或按 F6/F5。
 
 ## 操作
 
 - WASD / 方向键：移动芽尖。
-- Space：靠近半透明横向障碍时长按蓄力。
+- E：在生命体附近轻按帮助，长按约 0.8 秒吸收。
+- Space：靠近半透明障碍时蓄力；文本显示时立即显示全文/继续。
+- F3：打开调试面板，可传送并检查本局状态。
 - Esc：暂停或继续。
 - R：进入结局后重新开始。
 
-沿通道持续向上，在第二幕长按 Space 撕开保鲜膜；到达顶部后再次长按 Space 顶开盒盖，即可进入默认结局。
+试玩基础系统时，可在第一幕寻找黄色日期石片、绿色沉睡者和大片黏液；第三幕右侧有冰霜区。沿通道向上仍可在 2–3 分钟内触发默认结局。
 
 ## 命令行检查
 
-Godot 加入 PATH 后，在 `program` 目录执行：
+在 `source` 目录执行：
 
 ```powershell
-godot --headless --path source --editor --quit
-godot --headless --path source --script res://tests/smoke_test.gd
-godot --headless --path source --scene res://tests/gameplay_flow_test.tscn
+godot --headless --path . --script res://tests/smoke_test.gd
+godot --headless --path . --scene res://tests/basic_systems_test.tscn
+godot --headless --path . --scene res://tests/gameplay_flow_test.tscn
 ```
 
-若 Godot 没有加入 PATH，请将 `godot` 替换为实际 exe 的完整路径。
+若 Godot 没有加入 PATH，请使用 `D:\App\Godot\Godot_v4.7.2-stable_win64.exe`。
