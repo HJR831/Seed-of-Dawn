@@ -11,6 +11,12 @@ signal interaction_completed(item_id: StringName, action_id: StringName)
 @export var state_delta: Dictionary = {}
 @export var narrative_text_id: StringName = &"interact_sample"
 @export var required_item: StringName = &""
+@export var required_counter_id: StringName = &""
+@export var required_counter_minimum: int = 0
+@export var completion_flag: StringName = &""
+@export var completion_action: StringName = &""
+@export var completion_counter_id: StringName = &""
+@export var completion_counter_amount: int = 0
 @export var consumed_after_use: bool = true
 @export var short_press_seconds: float = 0.35
 @export var hold_seconds: float = 0.8
@@ -86,6 +92,11 @@ func _complete_action(action_id: StringName) -> bool:
 		if narrative != null:
 			narrative.request_text(&"interaction_missing_item")
 		return false
+	if not required_counter_id.is_empty() and game_state.get_counter(required_counter_id) < required_counter_minimum:
+		var narrative := get_node_or_null("/root/NarrativeManager")
+		if narrative != null:
+			narrative.request_text(&"interaction_missing_item")
+		return false
 	match action_id:
 		&"nurture", &"devour", &"noise", &"destruction", &"corruption":
 			game_state.add_stat(action_id, int(state_delta.get(action_id, 1)))
@@ -93,6 +104,10 @@ func _complete_action(action_id: StringName) -> bool:
 			game_state.collect_item(item_id)
 		_:
 			game_state.set_flag(action_id)
+	if not completion_flag.is_empty() and (completion_action.is_empty() or completion_action == action_id):
+		game_state.set_flag(completion_flag)
+	if not completion_counter_id.is_empty() and completion_counter_amount != 0:
+		game_state.increment_counter(completion_counter_id, completion_counter_amount)
 	game_state.set_flag(StringName("interacted_%s" % item_id))
 	var narrative := get_node_or_null("/root/NarrativeManager")
 	if narrative != null and not narrative_text_id.is_empty():

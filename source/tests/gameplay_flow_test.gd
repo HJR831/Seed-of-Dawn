@@ -42,7 +42,7 @@ func _run_test() -> void:
 	get_node("/root/NarrativeManager").clear_queue()
 
 	# 将芽尖放进最终盒盖感应范围，模拟持续蓄力。
-	player.global_position = Vector2(640.0, 305.0)
+	player.global_position = level.get_location(&"final_lid")
 	await get_tree().physics_frame
 	Input.action_press(&"charge")
 	await get_tree().create_timer(2.15).timeout
@@ -52,6 +52,10 @@ func _run_test() -> void:
 	var ending_screen := main.get_node_or_null("EndingScreen")
 	if ending_screen == null:
 		_fail("长按盒盖后没有进入默认结局")
+		return
+	var progress_state := get_node("/root/ProgressState")
+	if not progress_state.is_ending_unlocked(&"ending_01_food_failure"):
+		_fail("默认结局没有写入永久图鉴")
 		return
 
 	ending_screen.restart_requested.emit()
@@ -63,6 +67,16 @@ func _run_test() -> void:
 		return
 	if main.get_node_or_null("FridgeLevel/Sprout") == null:
 		_fail("重新开始后没有重新生成玩家")
+		return
+	if not progress_state.is_ending_unlocked(&"ending_01_food_failure"):
+		_fail("重新开始后永久图鉴被错误清空")
+		return
+	if get_node("/root/GameState").current_ending != &"":
+		_fail("重新开始后本局结局状态没有清空")
+		return
+	var ambience := get_node_or_null("/root/AudioManager/AmbiencePlayer") as AudioStreamPlayer
+	if ambience == null or not ambience.playing:
+		_fail("结局后重新开始没有恢复压缩机环境声")
 		return
 
 	print("GAMEPLAY FLOW PASS: 移动、Line2D、局部光照、盒盖蓄力、默认结局和重新开始均正常。")

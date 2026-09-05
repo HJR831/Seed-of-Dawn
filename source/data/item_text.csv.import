@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://8emep8b5cjvn"
+
+[deps]
+
+files=["res://data/item_text.category.translation", "res://data/item_text.myth.translation", "res://data/item_text.real.translation", "res://data/item_text.description.translation"]
+
+source_file="res://data/item_text.csv"
+dest_files=["res://data/item_text.category.translation", "res://data/item_text.myth.translation", "res://data/item_text.real.translation", "res://data/item_text.description.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true

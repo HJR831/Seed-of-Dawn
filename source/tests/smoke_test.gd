@@ -10,9 +10,13 @@ const REQUIRED_RESOURCES := [
 	"res://scenes/gameplay/pickup.tscn",
 	"res://scenes/gameplay/interactable.tscn",
 	"res://scenes/gameplay/narrative_trigger.tscn",
+	"res://scenes/gameplay/ritual_tracker.tscn",
+	"res://scenes/gameplay/ending_entrance.tscn",
 	"res://scenes/ui/dialogue_box.tscn",
 	"res://scenes/ui/debug_panel.tscn",
 	"res://scenes/ui/ending_screen.tscn",
+	"res://scenes/ui/inventory_panel.tscn",
+	"res://tests/phase_20_endings_flow_test.tscn",
 ]
 
 const REQUIRED_SCRIPTS := [
@@ -26,9 +30,26 @@ const REQUIRED_SCRIPTS := [
 	"res://scenes/gameplay/pickup.gd",
 	"res://scenes/gameplay/interactable.gd",
 	"res://scenes/gameplay/narrative_trigger.gd",
+	"res://scenes/gameplay/ritual_tracker.gd",
+	"res://scenes/gameplay/ending_entrance.gd",
+	"res://systems/ending_ids.gd",
+	"res://systems/ending_resolver.gd",
+	"res://systems/procedural_map_generator.gd",
+	"res://scenes/gameplay/route_flag_area.gd",
+	"res://scenes/gameplay/counter_console.gd",
+	"res://scenes/gameplay/sequence_console.gd",
+	"res://scenes/gameplay/compressor_idle_ritual.gd",
+	"res://scenes/ui/inventory_panel.gd",
 	"res://scenes/ui/dialogue_box.gd",
 	"res://scenes/ui/debug_panel.gd",
 	"res://tests/basic_systems_test.gd",
+	"res://tests/ending_resolver_test.gd",
+	"res://tests/phase_13_20_test.gd",
+	"res://tests/save_roundtrip_test.gd",
+	"res://tests/ending_screen_test.gd",
+	"res://tests/procedural_map_test.gd",
+	"res://tests/phase_20_32_test.gd",
+	"res://tests/phase_20_endings_flow_test.gd",
 ]
 
 
@@ -39,7 +60,8 @@ func _init() -> void:
 func _run_test() -> void:
 	var failures: Array[String] = []
 	for script_path in REQUIRED_SCRIPTS:
-		if load(script_path) == null:
+		var script := load(script_path) as Script
+		if script == null or not script.can_instantiate():
 			failures.append("脚本无法加载：%s" % script_path)
 	for resource_path in REQUIRED_RESOURCES:
 		if not ResourceLoader.exists(resource_path):

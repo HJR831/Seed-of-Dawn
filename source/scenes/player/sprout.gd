@@ -56,6 +56,9 @@ func _draw() -> void:
 	elif visual_route == &"milk" and visual_stage > 0:
 		body_color = Color(0.72, 0.58, 0.24)
 		head_color = Color(1.0, 0.91, 0.56)
+	elif visual_route == &"eldritch" and visual_stage > 0:
+		body_color = Color(0.16, 0.015, 0.24)
+		head_color = Color(0.50, 0.08, 0.70)
 	draw_circle(Vector2.ZERO, 18.0, body_color)
 	draw_circle(Vector2(0, -3), 13.0, head_color)
 	draw_circle(Vector2(4, -7), 4.0, Color(0.96, 0.82, 1.0))
@@ -70,6 +73,11 @@ func _draw() -> void:
 			draw_colored_polygon(PackedVector2Array([
 				offset + Vector2(-5, 4), offset + Vector2(0, -9), offset + Vector2(6, 4)
 			]), Color(0.82, 0.95, 1.0, 0.9))
+	if visual_route == &"eldritch":
+		for index in range(mini(visual_stage, 3)):
+			var eye_position := Vector2(-9.0 + index * 9.0, 5.0)
+			draw_circle(eye_position, 3.5, Color(0.96, 0.66, 1.0))
+			draw_circle(eye_position, 1.5, Color(0.06, 0.01, 0.08))
 
 
 func set_input_enabled(enabled: bool) -> void:
@@ -112,6 +120,16 @@ func get_trail_points() -> PackedVector2Array:
 	return trail.points
 
 
+func set_camera_limits(bounds: Rect2) -> void:
+	var camera := get_node_or_null("Camera2D") as Camera2D
+	if camera == null:
+		return
+	camera.limit_left = roundi(bounds.position.x)
+	camera.limit_top = roundi(bounds.position.y)
+	camera.limit_right = roundi(bounds.end.x)
+	camera.limit_bottom = roundi(bounds.end.y)
+
+
 func _update_trail() -> void:
 	if global_position.distance_to(last_trail_point) < trail_point_gap:
 		return
@@ -151,6 +169,9 @@ func _update_status_visuals() -> void:
 	elif visual_route == &"milk" and visual_stage > 0:
 		trail.default_color = Color(1.0, 0.88, 0.48)
 		local_light.color = Color(1.0, 0.86, 0.58)
+	elif visual_route == &"eldritch" and visual_stage > 0:
+		trail.default_color = Color(0.40, 0.03, 0.58)
+		local_light.color = Color(0.68, 0.18, 0.84)
 	else:
 		trail.default_color = Color(0.52, 0.16, 0.84)
 		local_light.color = Color(0.72, 0.46, 1.0)

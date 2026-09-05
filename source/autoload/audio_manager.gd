@@ -78,7 +78,10 @@ func get_compressor_count() -> int:
 func stop_all() -> void:
 	for child in get_children():
 		if child is AudioStreamPlayer:
-			child.stop()
+			if child == _ambience_player or child == _music_player:
+				child.stop()
+			else:
+				child.queue_free()
 
 
 func _on_compressor_cycle() -> void:
@@ -95,6 +98,8 @@ func _on_compressor_cycle() -> void:
 
 func _on_run_reset(_run_number: int) -> void:
 	_compressor_count = 0
+	if is_instance_valid(_ambience_player) and not _ambience_player.playing:
+		_ambience_player.play()
 	if is_instance_valid(_compressor_timer):
 		_compressor_timer.start()
 	call_deferred("_on_compressor_cycle")
@@ -117,6 +122,8 @@ func _ensure_audio_buses() -> void:
 
 
 func _tone_for_id(sfx_id: StringName) -> float:
+	if str(sfx_id).begins_with("ritual_step_"):
+		return 420.0 + float(str(sfx_id).get_slice("_", 2).to_int()) * 90.0
 	match sfx_id:
 		&"compressor_start": return 58.0
 		&"pickup": return 660.0
@@ -126,6 +133,9 @@ func _tone_for_id(sfx_id: StringName) -> float:
 		&"sticky_exit": return 180.0
 		&"frost_touch": return 880.0
 		&"barrier_break": return 240.0
+		&"milk_do": return 261.63
+		&"milk_re": return 293.66
+		&"milk_mi": return 329.63
 		_: return 520.0
 
 

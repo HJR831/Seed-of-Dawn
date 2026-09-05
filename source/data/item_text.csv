@@ -1,0 +1,32 @@
+item_id,category,myth_name,real_name,description
+date_tablet,clue,古代数字石片,褪色日期贴纸,数字仍在提醒某个被遗忘的期限。
+corrupt_eye,relic,腐败之眼,黑色孢核,第一枚旧神遗物。
+scarlet_ointment,relic,猩红圣膏,辣酱红油,第二枚旧神遗物。
+frozen_heart,relic,永冻之心,眼纹冰晶,第三枚旧神遗物。
+milk_drop_1,nutrient,白母之泪 I,牛奶滴 I,乳白的液滴发出第一个音。
+milk_drop_2,nutrient,白母之泪 II,牛奶滴 II,乳白的液滴发出第二个音。
+milk_drop_3,nutrient,白母之泪 III,牛奶滴 III,乳白的液滴发出第三个音。
+golden_scale,relic,日之金鳞,奶酪黄边,奶龙配方中的黄色鳞片。
+clean_water_1,nutrient,无垢露水 I,干净冷凝水 I,可以净化或分享给同伴。
+clean_water_2,nutrient,无垢露水 II,干净冷凝水 II,可以净化或分享给同伴。
+clean_water_3,nutrient,无垢露水 III,干净冷凝水 III,可以净化或分享给同伴。
+door_soil,component,门外之土,门缝泥土,带着暖风气味的土粒。
+flowerpot_receipt,clue,移栽预言,花盆计划小票,背面写着周末给花盆添土。
+sale_tag_1,clue,增长经文 I,促销价签 A,可以被条形码终端读取。
+sale_tag_2,clue,增长经文 II,促销价签 B,可以被条形码终端读取。
+sale_tag_3,clue,增长经文 III,促销价签 C,可以被条形码终端读取。
+nutrient_1,nutrient,无主养分 I,软烂食物 I,吞噬会让芽体继续增长。
+nutrient_2,nutrient,无主养分 II,软烂食物 II,吞噬会让芽体继续增长。
+nutrient_3,nutrient,无主养分 III,软烂食物 III,吞噬会让芽体继续增长。
+nutrient_4,nutrient,无主养分 IV,软烂食物 IV,吞噬会让芽体继续增长。
+nutrient_5,nutrient,无主养分 V,软烂食物 V,吞噬会让芽体继续增长。
+nutrient_6,nutrient,无主养分 VI,软烂食物 VI,吞噬会让芽体继续增长。
+frost_crystal_1,nutrient,霜毒结晶 I,可收集霜晶 I,寒冷正在芽体中积累。
+frost_crystal_2,nutrient,霜毒结晶 II,可收集霜晶 II,寒冷正在芽体中积累。
+frost_crystal_3,nutrient,霜毒结晶 III,可收集霜晶 III,寒冷正在芽体中积累。
+frost_crystal_4,nutrient,霜毒结晶 IV,可收集霜晶 IV,寒冷正在芽体中积累。
+sleeping_stone,relic,眠石,结冰豌豆核心,它允许生命把生长推迟到未来。
+aluminum_foil,component,雷引,铝箔碎片,连接泰坦神经的导体。
+conductive_water,component,流动之镜,导电冷凝水,能让断开的触点重新相连。
+magnet_core,component,方向之核,冰箱贴磁芯,会对隐藏线路产生反应。
+

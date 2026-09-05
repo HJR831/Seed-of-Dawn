@@ -28,6 +28,7 @@ var run_seconds: float = 0.0
 var input_distance: float = 0.0
 var optional_nutrients_total: int = 0
 var optional_nutrients_eaten: int = 0
+var run_seed: int = 1
 
 
 func _process(delta: float) -> void:
@@ -35,8 +36,12 @@ func _process(delta: float) -> void:
 		run_seconds += delta
 
 
-func reset_run() -> void:
+func reset_run(seed_override: int = -1) -> void:
 	run_number += 1
+	if seed_override > 0:
+		run_seed = seed_override
+	else:
+		run_seed = maxi(int((Time.get_ticks_usec() ^ hash(Time.get_datetime_string_from_system())) & 0x7fffffff), 1)
 	current_ending = &""
 	devour = 0
 	nurture = 0
@@ -139,4 +144,5 @@ func make_snapshot() -> Dictionary:
 		"input_distance": input_distance,
 		"optional_nutrients_total": optional_nutrients_total,
 		"optional_nutrients_eaten": optional_nutrients_eaten,
+		"run_seed": run_seed,
 	}

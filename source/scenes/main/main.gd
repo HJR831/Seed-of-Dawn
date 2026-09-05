@@ -12,6 +12,7 @@ const ACTION_KEYS := {
 	&"charge": [KEY_SPACE],
 	&"restart_run": [KEY_R],
 	&"pause": [KEY_ESCAPE],
+	&"inventory": [KEY_I, KEY_TAB],
 	&"skip_text": [KEY_ENTER, KEY_SPACE],
 	&"debug_toggle": [KEY_F3],
 }
@@ -48,7 +49,7 @@ func _ensure_input_actions() -> void:
 			InputMap.action_add_event(action, key_event)
 
 
-func _start_new_run() -> void:
+func _start_new_run(seed_override: int = -1) -> void:
 	get_tree().paused = false
 	pause_overlay.visible = false
 
@@ -63,7 +64,10 @@ func _start_new_run() -> void:
 
 	var game_state := get_node_or_null("/root/GameState")
 	if game_state != null:
-		game_state.reset_run()
+		game_state.reset_run(seed_override)
+	var progress_state := get_node_or_null("/root/ProgressState")
+	if progress_state != null:
+		progress_state.record_run_started()
 	current_level = LEVEL_SCENE.instantiate()
 	add_child(current_level)
 	current_level.ending_requested.connect(_on_ending_requested)
@@ -75,6 +79,12 @@ func _on_ending_requested(ending_id: StringName) -> void:
 	var game_state := get_node_or_null("/root/GameState")
 	if game_state != null:
 		game_state.finish_run(ending_id)
+	var narrative := get_node_or_null("/root/NarrativeManager")
+	if narrative != null:
+		narrative.clear_queue()
+	var audio := get_node_or_null("/root/AudioManager")
+	if audio != null:
+		audio.stop_all()
 	var progress_state := get_node_or_null("/root/ProgressState")
 	if progress_state != null:
 		progress_state.unlock_ending(ending_id)

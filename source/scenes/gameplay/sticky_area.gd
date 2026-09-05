@@ -3,6 +3,7 @@ extends Area2D
 @export var area_size := Vector2(300.0, 180.0)
 @export_range(0.1, 1.0, 0.05) var speed_multiplier: float = 0.45
 @export var area_color := Color(0.18, 0.34, 0.12, 0.72)
+@export var flag_on_enter: StringName = &""
 
 var _affected_players: Dictionary = {}
 
@@ -31,6 +32,9 @@ func _on_body_entered(body: Node2D) -> void:
 		return
 	_affected_players[body] = true
 	body.add_temporary_speed_modifier(StringName("sticky_%d" % get_instance_id()), speed_multiplier)
+	var game_state := get_node_or_null("/root/GameState")
+	if game_state != null and not flag_on_enter.is_empty():
+		game_state.set_flag(flag_on_enter)
 	var audio := get_node_or_null("/root/AudioManager")
 	if audio != null:
 		audio.play_sfx(&"sticky_enter")
