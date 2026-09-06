@@ -8,6 +8,7 @@ const NARRATIVE_DATA_PATH := "res://data/narrative_text.csv"
 
 var _entries: Dictionary = {}
 var _queue: Array[StringName] = []
+var _queue_priorities: Dictionary = {}
 var _seen_this_run: Dictionary = {}
 var _current_id: StringName = &""
 
@@ -19,7 +20,7 @@ func _ready() -> void:
 		game_state.run_reset.connect(_on_run_reset)
 
 
-func request_text(text_id: StringName) -> bool:
+func request_text(text_id: StringName, priority: int = 0) -> bool:
 	if not _entries.has(text_id):
 		push_warning("NarrativeManager: 未找到文本 ID：%s" % text_id)
 		return false
@@ -29,7 +30,13 @@ func request_text(text_id: StringName) -> bool:
 	if text_id == _current_id or text_id in _queue:
 		return false
 	_seen_this_run[text_id] = true
-	_queue.append(text_id)
+	_queue_priorities[text_id] = priority
+	var insert_at := _queue.size()
+	for index in range(_queue.size()):
+		if priority > int(_queue_priorities.get(_queue[index], 0)):
+			insert_at = index
+			break
+	_queue.insert(insert_at, text_id)
 	_try_start_next()
 	return true
 
@@ -45,6 +52,7 @@ func finish_current_text() -> void:
 
 func clear_queue() -> void:
 	_queue.clear()
+	_queue_priorities.clear()
 	_current_id = &""
 	queue_cleared.emit()
 
@@ -57,6 +65,10 @@ func queued_count() -> int:
 	return _queue.size() + (0 if _current_id.is_empty() else 1)
 
 
+func current_text_id() -> StringName:
+	return _current_id
+
+
 func get_entry(text_id: StringName) -> Dictionary:
 	return _entries.get(text_id, {}).duplicate(true)
 
@@ -65,6 +77,7 @@ func _try_start_next() -> void:
 	if not _current_id.is_empty() or _queue.is_empty():
 		return
 	_current_id = _queue.pop_front()
+	_queue_priorities.erase(_current_id)
 	text_started.emit((_entries[_current_id] as Dictionary).duplicate(true))
 
 
@@ -93,6 +106,7 @@ func _load_csv() -> void:
 
 func _on_run_reset(_run_number: int) -> void:
 	_queue.clear()
+	_queue_priorities.clear()
 	_seen_this_run.clear()
 	_current_id = &""
 	queue_cleared.emit()

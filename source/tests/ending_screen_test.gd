@@ -11,6 +11,10 @@ const CASES := {
 	&"ending_06_infinite_growth_inc": "无限增长有限公司",
 	&"ending_07_eternal_winter_seed": "永冬胚种",
 	&"ending_08_root_access": "ROOT 权限",
+	&"ending_09_purple_crown": "紫冠的新芽",
+	&"ending_10_dark_harvest": "不见天日的丰收",
+	&"ending_11_not_growing_today": "今天不长",
+	&"ending_12_landfill_king": "垃圾大陆之王",
 }
 
 
@@ -27,7 +31,17 @@ func _ready() -> void:
 		remove_child(screen)
 		screen.queue_free()
 		await get_tree().process_frame
-	print("ENDING SCREEN PASS: 前八个结局共用画面能正确加载各自数据。")
+	game_state.current_ending = &"ending_12_landfill_king"
+	game_state.set_flag(&"read_compost_label")
+	var compost_screen := ENDING_SCREEN_SCENE.instantiate()
+	add_child(compost_screen)
+	await get_tree().process_frame
+	if not compost_screen.should_play_landfill_epilogue(&"ending_12_landfill_king") or compost_screen.should_play_landfill_epilogue(&"ending_01_food_failure"):
+		_fail("可堆肥标签没有只为结局 12 开启八秒后二段")
+		return
+	remove_child(compost_screen)
+	compost_screen.queue_free()
+	print("ENDING SCREEN PASS: 十二个结局共用画面能正确加载各自数据。")
 	get_tree().quit(0)
 
 

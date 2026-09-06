@@ -11,6 +11,7 @@ var unlocked_endings: Dictionary = {}
 var run_count: int = 0
 var first_ending_seen: bool = false
 var text_skip_unlocked: bool = false
+var tutorial_seen: bool = false
 var master_volume: float = 1.0
 var music_volume: float = 0.8
 var sfx_volume: float = 0.9
@@ -47,6 +48,7 @@ func clear_unlocked_endings() -> void:
 	unlocked_endings.clear()
 	first_ending_seen = false
 	text_skip_unlocked = false
+	tutorial_seen = false
 	_save_to_path(SAVE_PATH)
 	progress_cleared.emit()
 
@@ -83,6 +85,7 @@ func _save_to_path(path: String) -> bool:
 	config.set_value("progress", "run_count", run_count)
 	config.set_value("progress", "first_ending_seen", first_ending_seen)
 	config.set_value("progress", "text_skip_unlocked", text_skip_unlocked)
+	config.set_value("progress", "tutorial_seen", tutorial_seen)
 	config.set_value("audio", "master", master_volume)
 	config.set_value("audio", "music", music_volume)
 	config.set_value("audio", "sfx", sfx_volume)
@@ -110,6 +113,7 @@ func _load_from_path(path: String) -> bool:
 	run_count = maxi(int(config.get_value("progress", "run_count", 0)), 0)
 	first_ending_seen = bool(config.get_value("progress", "first_ending_seen", false))
 	text_skip_unlocked = bool(config.get_value("progress", "text_skip_unlocked", false))
+	tutorial_seen = bool(config.get_value("progress", "tutorial_seen", false))
 	master_volume = clampf(float(config.get_value("audio", "master", 1.0)), 0.0, 1.0)
 	music_volume = clampf(float(config.get_value("audio", "music", 0.8)), 0.0, 1.0)
 	sfx_volume = clampf(float(config.get_value("audio", "sfx", 0.9)), 0.0, 1.0)
@@ -122,6 +126,7 @@ func _reset_data() -> void:
 	run_count = 0
 	first_ending_seen = false
 	text_skip_unlocked = false
+	tutorial_seen = false
 	master_volume = 1.0
 	music_volume = 0.8
 	sfx_volume = 0.9
@@ -132,6 +137,13 @@ func _apply_audio_settings() -> void:
 		var bus_index := AudioServer.get_bus_index(bus_and_value[0])
 		if bus_index >= 0:
 			AudioServer.set_bus_volume_db(bus_index, linear_to_db(maxf(float(bus_and_value[1]), 0.0001)))
+
+
+func mark_tutorial_seen() -> void:
+	if tutorial_seen:
+		return
+	tutorial_seen = true
+	_save_to_path(SAVE_PATH)
 
 
 func _backup_corrupt_save() -> void:

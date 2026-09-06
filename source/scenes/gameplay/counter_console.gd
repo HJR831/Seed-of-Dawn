@@ -8,9 +8,12 @@ extends Area2D
 
 var player_inside := false
 var _prompt: Label
+var _art: Sprite2D
+var _dial_textures: Array[Texture2D] = []
 
 
 func _ready() -> void:
+	add_to_group(&"interactable")
 	collision_layer = 16
 	collision_mask = 2
 	var collision := CollisionShape2D.new()
@@ -27,6 +30,7 @@ func _ready() -> void:
 	_prompt.add_theme_font_size_override("font_size", 18)
 	_prompt.visible = false
 	add_child(_prompt)
+	_load_dial_art()
 	_update_prompt()
 	queue_redraw()
 
@@ -54,6 +58,8 @@ func increment() -> int:
 
 
 func _draw() -> void:
+	if is_instance_valid(_art):
+		return
 	draw_circle(Vector2.ZERO, 42.0, Color(console_color, 0.32))
 	draw_arc(Vector2.ZERO, 30.0, -PI * 0.75, PI * 0.75, 18, console_color, 7.0)
 	var game_state := get_node_or_null("/root/GameState")
@@ -68,6 +74,35 @@ func _update_prompt() -> void:
 	var game_state := get_node_or_null("/root/GameState")
 	var value: int = int(game_state.get_counter(counter_id)) if game_state != null else 0
 	_prompt.text = "%s  %d/%d" % [prompt_text, value, target_value]
+	_update_dial_art(value)
+
+
+func _load_dial_art() -> void:
+	var library := get_node_or_null("/root/AssetLibrary")
+	if library == null:
+		return
+	for index in range(1, 9):
+		var names: Array = ["env_thermostat_dial_%02d.png" % index]
+		if index == 7:
+			names.append("env_thermostat_dial_017png.png")
+		var texture: Texture2D = library.get_first_texture(names)
+		if texture != null:
+			_dial_textures.append(texture)
+	if _dial_textures.is_empty():
+		return
+	_art = Sprite2D.new()
+	_art.name = "ThermostatArt"
+	_art.z_index = 2
+	add_child(_art)
+	_update_dial_art(0)
+
+
+func _update_dial_art(value: int) -> void:
+	if not is_instance_valid(_art) or _dial_textures.is_empty():
+		return
+	_art.texture = _dial_textures[clampi(value, 0, _dial_textures.size() - 1)]
+	var extent := maxf(_art.texture.get_size().x, _art.texture.get_size().y)
+	_art.scale = Vector2.ONE * (112.0 / maxf(extent, 1.0))
 
 
 func _on_body_entered(body: Node2D) -> void:

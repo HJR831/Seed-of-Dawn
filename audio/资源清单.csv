@@ -1,0 +1,88 @@
+﻿id,name_zh,priority,file,duration_seconds,sample_rate,channels,loop,loop_start_frame,loop_end_frame_exclusive,bpm,decoded_peak_dbfs,rms_dbfs,note
+amb_fridge_compressor_loop,冰箱压缩机基础循环,P0,ambience/amb_fridge_compressor_loop.ogg,24.0,48000,2,True,0,1152000,,-16.89,-25.48,24 秒完整周期；0 秒启动标记。第三次启动发生在 48 秒。与独立启动声二选一触发，避免重复。
+sfx_compressor_start,压缩机启动声,P0,sfx/sfx_compressor_start.wav,1.8,48000,2,False,,,,-12.0,-27.42,用于独立事件触发；基础循环已含同一启动标记。
+amb_fridge_cold_air_loop,冰箱风道冷风循环,P0,ambience/amb_fridge_cold_air_loop.ogg,24.0,48000,2,True,0,1152000,,-22.45,-37.75,
+music_mythic_ambience_loop,前期史诗氛围音乐,P0,music/music_mythic_ambience_loop.ogg,24.0,48000,2,True,0,1152000,80,-22.2,-36.78,D 小调；80 BPM，8 小节，24 秒。与危险层从同一样本位置同步。
+music_titan_danger_layer,第三阶段危险音乐层,P1,music/music_titan_danger_layer.ogg,24.0,48000,2,True,0,1152000,80,-25.32,-43.8,与基础音乐同为 24 秒；建议初始静音，阶段推进时渐入。
+music_ending_solemn_sting,默认结局庄严短和弦,P0,music/music_ending_solemn_sting.wav,3.2,48000,2,False,,,,-13.0,-27.31,2.72 秒突然收住；末尾保留 0.48 秒静默，衔接盒扣笑点。
+music_ending_comic_8bit,搞怪 8-bit 结算小调,P0,music/music_ending_comic_8bit.ogg,4.8,48000,2,False,,,,-12.09,-26.16,原创 D 大调 4.8 秒短句；干净结束，可用于默认反转及奶龙彩蛋。
+music_ending_eldritch,克苏鲁真结局音乐,P0,music/music_ending_eldritch.ogg,16.0,48000,2,False,,,,-15.14,-31.39,16 秒；合成低频元音合唱与半音不协和，无歌词。
+music_ending_balcony_warm,窗台暖色环境音乐,P1,music/music_ending_balcony_warm.ogg,24.0,48000,2,True,0,1152000,80,-23.03,-39.06,柔和拨弦与气垫，生活化，无钢琴。
+music_symbiosis_layer_01,共生和声层 A（洋葱）,P1,music/music_symbiosis_layer_01.ogg,24.0,48000,2,True,0,1152000,,-23.78,-35.52,同起点 24 秒循环；D3/F3/A3 分层，三层构成 D 小三和弦。
+music_symbiosis_layer_02,共生和声层 B（蒜头）,P1,music/music_symbiosis_layer_02.ogg,24.0,48000,2,True,0,1152000,,-23.77,-35.54,同起点 24 秒循环；D3/F3/A3 分层，三层构成 D 小三和弦。
+music_symbiosis_layer_03,共生和声层 C（老姜或葱根）,P1,music/music_symbiosis_layer_03.ogg,24.0,48000,2,True,0,1152000,,-23.86,-33.99,同起点 24 秒循环；D3/F3/A3 分层，三层构成 D 小三和弦。
+amb_eternal_frost_heartbeat_single,永冬单次心跳,P1,sfx/amb_eternal_frost_heartbeat_single.wav,1.2,48000,2,False,,,,-17.0,-33.96,随霜化加深，将触发间隔从 1.5 秒增加到 6 秒。
+amb_eternal_frost_heartbeat_40bpm_loop,永冬低速心跳 40bpm,P1,ambience/amb_eternal_frost_heartbeat_40bpm_loop.ogg,24.0,48000,2,True,0,1152000,,-16.9,-34.9,心率渐慢的可切换循环版本。
+amb_eternal_frost_heartbeat_20bpm_loop,永冬低速心跳 20bpm,P1,ambience/amb_eternal_frost_heartbeat_20bpm_loop.ogg,24.0,48000,2,True,0,1152000,,-17.1,-37.91,心率渐慢的可切换循环版本。
+amb_eternal_frost_heartbeat_10bpm_loop,永冬低速心跳 10bpm,P1,ambience/amb_eternal_frost_heartbeat_10bpm_loop.ogg,24.0,48000,2,True,0,1152000,,-17.09,-40.93,心率渐慢的可切换循环版本。
+amb_eternal_frost_heartbeat,永冬心跳逐渐减慢演出,P1,ambience/amb_eternal_frost_heartbeat.ogg,30.0,48000,2,False,,,,-16.9,-38.89,30 秒非循环；间隔 1.5 秒逐步拉长，最后一次在 22 秒。
+music_root_pulse_loop,ROOT 电子脉冲循环,P1,music/music_root_pulse_loop.ogg,12.0,48000,2,True,0,576000,80,-16.98,-36.51,四拍；每拍 0.75 秒，每小节 3 秒；第一拍低音重音，4 小节循环。
+music_credits_loop,片尾制作人员音乐,P1,music/music_credits_loop.ogg,32.0,48000,2,True,0,1536000,60,-20.36,-33.97,32 秒；普通片尾、十二结局图鉴及结算界面共用。
+sfx_sprout_move_loop,嫩芽移动摩擦循环,P0,sfx/sfx_sprout_move_loop.ogg,4.0,48000,2,True,0,192000,,-23.84,-39.0,
+sfx_sprout_move_stop,嫩芽停止移动声,P1,sfx/sfx_sprout_move_stop.wav,0.65,48000,2,False,,,,-24.0,-41.19,停止时用 60–100 ms 淡出移动循环并叠加此尾音。
+sfx_slime_enter_01,黏液进入声 1,P0,sfx/sfx_slime_enter_01.wav,0.62,48000,2,False,,,,-13.0,-26.11,
+sfx_slime_enter_02,黏液进入声 2,P0,sfx/sfx_slime_enter_02.wav,0.71,48000,2,False,,,,-13.0,-27.55,
+sfx_slime_enter_03,黏液进入声 3,P0,sfx/sfx_slime_enter_03.wav,0.8,48000,2,False,,,,-13.0,-27.05,
+sfx_slime_exit_01,黏液脱离声 1,P0,sfx/sfx_slime_exit_01.wav,0.85,48000,2,False,,,,-12.0,-24.85,
+sfx_slime_exit_02,黏液脱离声 2,P0,sfx/sfx_slime_exit_02.wav,0.97,48000,2,False,,,,-12.0,-24.03,
+sfx_plastic_film_stretch_loop,保鲜膜拉伸循环,P0,sfx/sfx_plastic_film_stretch_loop.ogg,3.0,48000,2,True,0,144000,,-21.43,-36.1,蓄力时播放速率可从 1.0 平滑升至 1.4；释放时触发破裂声。
+sfx_plastic_film_break_01,保鲜膜破裂声 1,P0,sfx/sfx_plastic_film_break_01.wav,0.55,48000,2,False,,,,-8.0,-30.99,
+sfx_plastic_film_break_02,保鲜膜破裂声 2,P0,sfx/sfx_plastic_film_break_02.wav,0.63,48000,2,False,,,,-8.0,-31.49,
+sfx_glass_tap_01,玻璃瓶轻碰声 1,P0,sfx/sfx_glass_tap_01.wav,1.1,48000,2,False,,,,-16.0,-28.13,
+sfx_glass_tap_02,玻璃瓶轻碰声 2,P0,sfx/sfx_glass_tap_02.wav,1.1,48000,2,False,,,,-16.0,-28.58,
+sfx_glass_tap_03,玻璃瓶轻碰声 3,P0,sfx/sfx_glass_tap_03.wav,1.1,48000,2,False,,,,-16.0,-27.99,
+sfx_glass_impact_01,玻璃瓶重撞声 1,P0,sfx/sfx_glass_impact_01.wav,1.5,48000,2,False,,,,-8.0,-23.13,
+sfx_glass_impact_02,玻璃瓶重撞声 2,P0,sfx/sfx_glass_impact_02.wav,1.5,48000,2,False,,,,-8.0,-22.94,
+sfx_frost_touch_01,冰霜接触声 1,P0,sfx/sfx_frost_touch_01.wav,0.8,48000,2,False,,,,-18.0,-35.87,
+sfx_frost_touch_02,冰霜接触声 2,P0,sfx/sfx_frost_touch_02.wav,0.87,48000,2,False,,,,-18.0,-36.08,
+sfx_frost_touch_03,冰霜接触声 3,P0,sfx/sfx_frost_touch_03.wav,0.94,48000,2,False,,,,-18.0,-37.26,
+sfx_frost_absorb_01,冰晶吸收声 1,P1,sfx/sfx_frost_absorb_01.wav,1.0,48000,2,False,,,,-15.0,-27.1,递升音高，用于累计收集反馈。
+sfx_frost_absorb_02,冰晶吸收声 2,P1,sfx/sfx_frost_absorb_02.wav,1.0,48000,2,False,,,,-15.0,-27.21,递升音高，用于累计收集反馈。
+sfx_frost_absorb_03,冰晶吸收声 3,P1,sfx/sfx_frost_absorb_03.wav,1.0,48000,2,False,,,,-15.0,-27.28,递升音高，用于累计收集反馈。
+sfx_frost_absorb_04,冰晶吸收声 4,P1,sfx/sfx_frost_absorb_04.wav,1.0,48000,2,False,,,,-15.0,-26.75,递升音高，用于累计收集反馈。
+sfx_item_discover,通用道具发现声,P0,sfx/sfx_item_discover.wav,1.5,48000,2,False,,,,-28.0,-37.85,极轻提示；不同于拾取完成。
+sfx_item_absorb,通用道具吸收声,P0,sfx/sfx_item_absorb.wav,1.35,48000,2,False,,,,-16.0,-28.92,长按完成时播放；路线专属声建议延迟 80–150 ms 叠加。
+sfx_milk_do,牛奶 Do 音,P0,sfx/sfx_milk_do.wav,0.8,48000,2,False,,,,-15.0,-29.56,固定首调 C4 / D4 / E4，温润短音。
+sfx_milk_re,牛奶 Re 音,P0,sfx/sfx_milk_re.wav,0.8,48000,2,False,,,,-15.0,-29.42,固定首调 C4 / D4 / E4，温润短音。
+sfx_milk_mi,牛奶 Mi 音,P0,sfx/sfx_milk_mi.wav,0.8,48000,2,False,,,,-15.0,-29.33,固定首调 C4 / D4 / E4，温润短音。
+sfx_dragon_chirp_01,幼龙稚嫩叫声 1,P0,sfx/sfx_dragon_chirp_01.wav,1.15,48000,2,False,,,,-13.0,-21.11,原创合成幼小生物叫声；未采样既有角色。
+sfx_dragon_chirp_02,幼龙稚嫩叫声 2,P0,sfx/sfx_dragon_chirp_02.wav,1.28,48000,2,False,,,,-13.0,-20.82,原创合成幼小生物叫声；未采样既有角色。
+sfx_dragon_chirp_03,幼龙稚嫩叫声 3,P0,sfx/sfx_dragon_chirp_03.wav,1.41,48000,2,False,,,,-13.0,-20.77,原创合成幼小生物叫声；未采样既有角色。
+sfx_eldritch_eye_open_01,旧神眼睛睁开声 1,P0,sfx/sfx_eldritch_eye_open_01.wav,1.65,48000,2,False,,,,-17.0,-28.77,强度递增：低 / 中 / 高。
+sfx_eldritch_eye_open_02,旧神眼睛睁开声 2,P0,sfx/sfx_eldritch_eye_open_02.wav,2.0,48000,2,False,,,,-15.0,-27.69,强度递增：低 / 中 / 高。
+sfx_eldritch_eye_open_03,旧神眼睛睁开声 3,P0,sfx/sfx_eldritch_eye_open_03.wav,2.35,48000,2,False,,,,-13.0,-25.86,强度递增：低 / 中 / 高。
+sfx_ritual_step_01,绕柱仪式确认音 1,P1,sfx/sfx_ritual_step_01.wav,1.3,48000,2,False,,,,-16.0,-28.07,
+sfx_ritual_step_02,绕柱仪式确认音 2,P1,sfx/sfx_ritual_step_02.wav,1.3,48000,2,False,,,,-16.0,-28.01,
+sfx_ritual_step_03,绕柱仪式确认音 3,P1,sfx/sfx_ritual_step_03.wav,1.3,48000,2,False,,,,-16.0,-28.21,
+sfx_ritual_step_04,绕柱仪式确认音 4,P1,sfx/sfx_ritual_step_04.wav,1.3,48000,2,False,,,,-16.0,-27.69,
+sfx_ritual_error,仪式顺序错误声,P1,sfx/sfx_ritual_error.wav,0.55,48000,2,False,,,,-20.0,-30.85,
+sfx_condensation_pickup_01,冷凝水拾取声 1,P1,sfx/sfx_condensation_pickup_01.wav,0.75,48000,2,False,,,,-17.0,-35.8,高频水滴滑音，与牛奶 CDE 固定音阶区分。
+sfx_condensation_pickup_02,冷凝水拾取声 2,P1,sfx/sfx_condensation_pickup_02.wav,0.75,48000,2,False,,,,-17.0,-36.02,高频水滴滑音，与牛奶 CDE 固定音阶区分。
+sfx_companion_onion_wake,同伴唤醒音 A（洋葱）,P1,sfx/sfx_companion_onion_wake.wav,2.4,48000,2,False,,,,-18.0,-26.93,D3 / F3 / A3；与共生持续和声层同调。
+sfx_companion_garlic_wake,同伴唤醒音 B（蒜头）,P1,sfx/sfx_companion_garlic_wake.wav,2.4,48000,2,False,,,,-18.0,-26.58,D3 / F3 / A3；与共生持续和声层同调。
+sfx_companion_ginger_wake,同伴唤醒音 C（老姜或葱根）,P1,sfx/sfx_companion_ginger_wake.wav,2.4,48000,2,False,,,,-18.0,-26.26,D3 / F3 / A3；与共生持续和声层同调。
+sfx_barcode_scan_01,条形码扫描声 1,P1,sfx/sfx_barcode_scan_01.wav,0.42,48000,2,False,,,,-17.0,-25.86,
+sfx_barcode_scan_02,条形码扫描声 2,P1,sfx/sfx_barcode_scan_02.wav,0.42,48000,2,False,,,,-17.0,-25.87,
+sfx_electric_node_ok_01,电气节点正确声 1,P1,sfx/sfx_electric_node_ok_01.wav,0.42,48000,2,False,,,,-17.0,-29.72,
+sfx_electric_node_ok_02,电气节点正确声 2,P1,sfx/sfx_electric_node_ok_02.wav,0.42,48000,2,False,,,,-17.0,-29.83,
+sfx_electric_node_ok_03,电气节点正确声 3,P1,sfx/sfx_electric_node_ok_03.wav,0.42,48000,2,False,,,,-17.0,-29.74,
+sfx_electric_node_error,电气节点错误声,P1,sfx/sfx_electric_node_error.wav,0.26,48000,2,False,,,,-19.0,-31.06,
+sfx_circuit_connected,接通电路声,P1,sfx/sfx_circuit_connected.wav,1.55,48000,2,False,,,,-13.0,-26.32,
+sfx_thermostat_click,温控旋钮咔哒声,P1,sfx/sfx_thermostat_click.wav,0.22,48000,2,False,,,,-15.0,-37.06,
+sfx_thermostat_click_seventh,温控旋钮第七格低频确认,P1,sfx/sfx_thermostat_click_seventh.wav,0.8,48000,2,False,,,,-12.0,-33.84,
+sfx_owner_step_far,冰箱门外脚步声（远）,P1,sfx/sfx_owner_step_far.wav,3.1,48000,2,False,,,,-27.0,-43.01,同一脚步序列的距离版；保留远中近音量梯度，勿逐文件响度归一化。
+sfx_owner_step_mid,冰箱门外脚步声（中）,P1,sfx/sfx_owner_step_mid.wav,3.1,48000,2,False,,,,-20.0,-37.77,同一脚步序列的距离版；保留远中近音量梯度，勿逐文件响度归一化。
+sfx_owner_step_near,冰箱门外脚步声（近）,P1,sfx/sfx_owner_step_near.wav,3.1,48000,2,False,,,,-13.0,-30.99,同一脚步序列的距离版；保留远中近音量梯度，勿逐文件响度归一化。
+sfx_fridge_door_rumble_01,冰箱门震动声 1,P0,sfx/sfx_fridge_door_rumble_01.wav,2.2,48000,2,False,,,,-9.0,-32.4,
+sfx_fridge_door_rumble_02,冰箱门震动声 2,P0,sfx/sfx_fridge_door_rumble_02.wav,2.2,48000,2,False,,,,-9.0,-31.93,
+sfx_fridge_door_open,冰箱门磁吸开启声,P0,sfx/sfx_fridge_door_open.wav,1.1,48000,2,False,,,,-12.0,-28.75,干声、少混响；胶条吸附松开后短气流。
+sfx_takeout_lid_click,外卖盒卡扣咔哒,P0,sfx/sfx_takeout_lid_click.wav,0.36,48000,2,False,,,,-9.0,-30.28,干声；无史诗混响。
+sfx_light_switch_press,灯开关按下声,P1,sfx/sfx_light_switch_press.wav,0.3,48000,2,False,,,,-16.0,-38.58,
+sfx_trash_bag_rustle_01,垃圾袋摩擦声（拖拽）,P0,sfx/sfx_trash_bag_rustle_01.wav,1.8,48000,2,False,,,,-14.0,-28.22,
+sfx_trash_bag_rustle_02,垃圾袋摩擦声（撕裂）,P0,sfx/sfx_trash_bag_rustle_02.wav,1.1,48000,2,False,,,,-14.0,-29.64,
+sfx_trash_bag_rustle_03,垃圾袋摩擦声（堆叠）,P0,sfx/sfx_trash_bag_rustle_03.wav,1.4,48000,2,False,,,,-14.0,-28.73,
+sfx_trash_bag_drop,垃圾袋落地声,P0,sfx/sfx_trash_bag_drop.wav,1.45,48000,2,False,,,,-8.0,-28.91,单次闷重落地及塑料短尾；适合黑屏后一击笑点。
+amb_landfill_rain_loop,雨夜填埋场环境声,P2,ambience/amb_landfill_rain_loop.ogg,24.0,48000,2,True,0,1152000,,-22.02,-36.34,
+amb_balcony_wind_birds_loop,窗外风声与鸟声,P1,ambience/amb_balcony_wind_birds_loop.ogg,24.0,48000,2,True,0,1152000,,-25.23,-40.03,低音量窗边风声与原创合成远鸟鸣。
+sfx_kpi_report_complete,收银或报表完成声,P1,sfx/sfx_kpi_report_complete.wav,1.2,48000,2,False,,,,-14.0,-25.43,
+sfx_root_access_granted,系统 ROOT 成功声,P1,sfx/sfx_root_access_granted.wav,2.0,48000,2,False,,,,-13.0,-27.85,原创五音电子完成提示。

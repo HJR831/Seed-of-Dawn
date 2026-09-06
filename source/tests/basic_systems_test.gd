@@ -5,6 +5,7 @@ const INTERACTABLE_SCENE := preload("res://scenes/gameplay/interactable.tscn")
 const PICKUP_SCENE := preload("res://scenes/gameplay/pickup.tscn")
 const STICKY_SCENE := preload("res://scenes/gameplay/sticky_area.tscn")
 const FROST_SCENE := preload("res://scenes/gameplay/frost_area.tscn")
+const ENDING_ENTRANCE_SCENE := preload("res://scenes/gameplay/ending_entrance.tscn")
 
 
 func _ready() -> void:
@@ -16,6 +17,17 @@ func _run_test() -> void:
 	var narrative := get_node("/root/NarrativeManager")
 	game_state.reset_run()
 	await get_tree().process_frame
+	var effects := get_node("/root/ItemEffectDirector")
+	if effects.has_effect(&"frost_immunity"):
+		_fail("新回合没有清除上一回合临时道具效果")
+		return
+	game_state.collect_item(&"frozen_heart")
+	if not effects.has_effect(&"frost_immunity"):
+		_fail("永冻之心拾取后没有激活霜冻免疫")
+		return
+	if game_state.get_counter(&"frost_count") != 0:
+		_fail("霜冻免疫错误修改了霜晶计数")
+		return
 
 	game_state.add_stat(&"noise", 2)
 	game_state.add_stat(&"noise", -1)
@@ -33,15 +45,19 @@ func _run_test() -> void:
 		return
 
 	narrative.clear_queue()
-	if not narrative.request_text(&"prologue") or not narrative.request_text(&"stage_rot"):
+	if not narrative.request_text(&"prologue") or not narrative.request_text(&"stage_rot") or not narrative.request_text(&"stage_final", 100):
 		_fail("叙事文本没有进入队列")
 		return
-	if narrative.queued_count() != 2 or narrative.request_text(&"stage_rot"):
+	if narrative.queued_count() != 3 or narrative.request_text(&"stage_rot"):
 		_fail("叙事队列未串行计数或未阻止重复文本")
 		return
 	narrative.finish_current_text()
-	if not narrative.is_text_active():
-		_fail("结束首条文本后没有自动播放队列下一条")
+	if narrative.current_text_id() != &"stage_final":
+		_fail("高优先级神谕没有排到普通提示之前")
+		return
+	narrative.finish_current_text()
+	if narrative.current_text_id() != &"stage_rot":
+		_fail("高优先级文本后没有恢复普通队列")
 		return
 	narrative.finish_current_text()
 	if narrative.is_text_active():
@@ -79,7 +95,14 @@ func _run_test() -> void:
 	add_child(sticky)
 	var frost := FROST_SCENE.instantiate()
 	add_child(frost)
+	var entrance := ENDING_ENTRANCE_SCENE.instantiate()
+	add_child(entrance)
 	await get_tree().process_frame
+	entrance._on_body_entered(sprout)
+	entrance._on_body_exited(sprout)
+	if not sprout._sprint_locks.is_empty():
+		_fail("离开结局入口后疾跑锁没有释放")
+		return
 	sticky._on_body_entered(sprout)
 	if sprout.speed_modifiers.is_empty():
 		_fail("黏液区域没有添加来源化减速")

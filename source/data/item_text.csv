@@ -29,4 +29,11 @@ sleeping_stone,relic,眠石,结冰豌豆核心,它允许生命把生长推迟到
 aluminum_foil,component,雷引,铝箔碎片,连接泰坦神经的导体。
 conductive_water,component,流动之镜,导电冷凝水,能让断开的触点重新相连。
 magnet_core,component,方向之核,冰箱贴磁芯,会对隐藏线路产生反应。
-
+hongsan_label,clue,紫冠名讳,洪山菜薹标签,记着一种喜冷凉却不能永冻的植物。
+yellow_petals,relic,失温日瓣,菜薹黄花瓣,花瓣会朝仍然活着的根飘动。
+sprout_nodule_1,component,芽眼结节 I,土豆芽眼 I,可以种下一扇向下的门。
+sprout_nodule_2,component,芽眼结节 II,土豆芽眼 II,可以种下一扇向下的门。
+sprout_nodule_3,component,芽眼结节 III,土豆芽眼 III,可以种下一扇向下的门。
+clean_nutrient,nutrient,未腐净粮,干净养分,适合播种而不是直接吞噬。
+compost_label,clue,轮回许可证,可堆肥标签,也许垃圾故事还有另一个结尾。
+black_water_core,relic,大陆黑血,腐败黑水核心,吸收它会让芽体彻底染上腐化。

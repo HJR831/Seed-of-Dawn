@@ -14,9 +14,14 @@ var _expected_index: int = 0
 var _step_elapsed: float = 0.0
 var _completed: bool = false
 var _checkpoint_visuals: Array[Polygon2D] = []
+var _ritual_player: Node
+var _ritual_texture: Texture2D
 
 
 func _ready() -> void:
+	var asset_library := get_node_or_null("/root/AssetLibrary")
+	if asset_library != null:
+		_ritual_texture = asset_library.get_texture(&"env_ritual_marks_counterclockwise.png")
 	_build_checkpoints()
 	queue_redraw()
 
@@ -31,6 +36,8 @@ func _process(delta: float) -> void:
 
 func _draw() -> void:
 	draw_arc(Vector2.ZERO, radius, 0.0, TAU, 64, ring_color, 3.0)
+	if _ritual_texture != null:
+		draw_texture_rect(_ritual_texture, Rect2(-radius, -radius, radius * 2.0, radius * 2.0), false, Color(1.0, 1.0, 1.0, 0.52))
 
 
 func register_checkpoint(index: int) -> void:
@@ -47,6 +54,8 @@ func register_checkpoint(index: int) -> void:
 
 
 func _accept_step(index: int) -> void:
+	if index == 0:
+		_set_sprint_lock(true)
 	_step_elapsed = 0.0
 	_checkpoint_visuals[index].color = Color(0.95, 0.80, 1.0, 0.9)
 	_expected_index += 1
@@ -56,6 +65,7 @@ func _accept_step(index: int) -> void:
 	if _expected_index < 4:
 		return
 	_completed = true
+	_set_sprint_lock(false)
 	var game_state := get_node_or_null("/root/GameState")
 	if game_state != null:
 		game_state.complete_ritual(ritual_id)
@@ -66,6 +76,7 @@ func _accept_step(index: int) -> void:
 
 
 func _reset_progress() -> void:
+	_set_sprint_lock(false)
 	_expected_index = 0
 	_step_elapsed = 0.0
 	for visual in _checkpoint_visuals:
@@ -98,4 +109,10 @@ func _build_checkpoints() -> void:
 
 func _on_checkpoint_entered(body: Node2D, index: int) -> void:
 	if body.is_in_group(&"player"):
+		_ritual_player = body
 		register_checkpoint(index)
+
+
+func _set_sprint_lock(locked: bool) -> void:
+	if is_instance_valid(_ritual_player) and _ritual_player.has_method("set_sprint_lock"):
+		_ritual_player.set_sprint_lock(&"ritual", locked)

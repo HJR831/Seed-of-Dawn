@@ -3,6 +3,7 @@ extends CanvasLayer
 signal restart_requested
 
 const ENDING_DATA_PATH := "res://data/ending_text.csv"
+const PIXEL_UI := preload("res://scenes/ui/pixel_ui_theme.gd")
 
 var _entries: Dictionary = {}
 
@@ -28,12 +29,28 @@ func _build_screen(ending_id: StringName) -> void:
 	backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	backdrop.color = palette[0]
 	add_child(backdrop)
-	var frame := ColorRect.new()
-	frame.position = Vector2(150, 72)
-	frame.size = Vector2(980, 530)
-	frame.color = palette[1]
+	var art_texture: Texture2D = null
+	var asset_library := get_node_or_null("/root/AssetLibrary")
+	if asset_library != null and asset_library.has_method("get_ending_texture"):
+		art_texture = asset_library.get_ending_texture(ending_id)
+	if art_texture != null:
+		var art := TextureRect.new()
+		art.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		art.texture = art_texture
+		art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+		art.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		art.modulate = Color(1.0, 1.0, 1.0, 0.92)
+		add_child(art)
+	else:
+		_build_placeholder_card(ending_id, palette)
+	var frame := Panel.new()
+	frame.position = Vector2(70, 430)
+	frame.size = Vector2(1140, 210)
+	PIXEL_UI.apply_panel(frame, Color(palette[1], 0.88), Color(palette[2], 0.72), 5)
 	add_child(frame)
-	_build_ending_visual(category, palette)
+	if art_texture == null:
+		_build_ending_visual(category, palette)
 
 	var title := Label.new()
 	title.position = Vector2(130, 42)
@@ -69,9 +86,59 @@ func _build_screen(ending_id: StringName) -> void:
 	restart_button.size = Vector2(300, 58)
 	restart_button.text = "再次发芽（R）"
 	restart_button.add_theme_font_size_override("font_size", 23)
+	PIXEL_UI.apply_button(restart_button, palette[2])
 	restart_button.pressed.connect(func() -> void: restart_requested.emit())
 	add_child(restart_button)
 	restart_button.grab_focus()
+	var audio := get_node_or_null("/root/AudioManager")
+	if audio != null and audio.has_method("play_ending_music"):
+		audio.play_ending_music(category)
+	_maybe_play_landfill_epilogue(ending_id)
+
+
+func _build_placeholder_card(ending_id: StringName, palette: Array[Color]) -> void:
+	var placeholder := Label.new()
+	placeholder.position = Vector2(270, 205)
+	placeholder.size = Vector2(740, 180)
+	placeholder.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	placeholder.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	placeholder.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	placeholder.add_theme_font_size_override("font_size", 28)
+	placeholder.add_theme_color_override("font_color", Color(palette[2], 0.88))
+	var parts := str(ending_id).split("_")
+	var index := parts[1] if parts.size() > 1 else "??"
+	placeholder.text = "占位结局插画\nending_%s_full.png\n（待补充正式结局素材）" % index
+	placeholder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(placeholder)
+
+
+func _maybe_play_landfill_epilogue(ending_id: StringName) -> void:
+	if not should_play_landfill_epilogue(ending_id):
+		return
+	await get_tree().create_timer(8.0).timeout
+	if not is_inside_tree():
+		return
+	var continuation := ColorRect.new()
+	continuation.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	continuation.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	continuation.color = Color(0.018, 0.025, 0.012, 0.97)
+	continuation.modulate.a = 0.0
+	add_child(continuation)
+	var text := Label.new()
+	text.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	text.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	text.add_theme_font_size_override("font_size", 29)
+	text.add_theme_color_override("font_color", Color(0.68, 0.82, 0.34))
+	text.text = "垃圾车驶过雨夜。\n填埋场的黑暗里，无数紫色芽眼依次睁开。\n\n过去，深渊为你提供温床。\n现在，整个世界都是温床。"
+	continuation.add_child(text)
+	create_tween().tween_property(continuation, "modulate:a", 1.0, 0.8)
+
+
+func should_play_landfill_epilogue(ending_id: StringName) -> bool:
+	var game_state := get_node_or_null("/root/GameState")
+	return ending_id == &"ending_12_landfill_king" and game_state != null and game_state.has_flag(&"read_compost_label")
 
 
 func _build_ending_visual(category: String, palette: Array[Color]) -> void:
@@ -139,6 +206,36 @@ func _build_ending_visual(category: String, palette: Array[Color]) -> void:
 					wire.add_point(Vector2(420 + (index - 1) * 110, 290 + sin(index - 1) * 90))
 					wire.add_point(node.position)
 					add_child(wire)
+		"crown":
+			for index in range(5):
+				var petal := Polygon2D.new()
+				petal.position = Vector2(640, 300) + Vector2.RIGHT.rotated(TAU * index / 5.0) * 105.0
+				petal.rotation = TAU * index / 5.0 + PI * 0.5
+				petal.polygon = PackedVector2Array([Vector2(0, -58), Vector2(35, 10), Vector2(0, 58), Vector2(-35, 10)])
+				petal.color = palette[2]
+				add_child(petal)
+		"harvest":
+			for index in range(3):
+				var root := Line2D.new()
+				root.width = 14.0
+				root.default_color = palette[2]
+				root.add_point(Vector2(500 + index * 140, 190))
+				root.add_point(Vector2(470 + index * 170, 410))
+				add_child(root)
+		"stillness":
+			var seed := Polygon2D.new()
+			seed.position = Vector2(640, 300)
+			seed.polygon = PackedVector2Array([Vector2(0, -95), Vector2(70, -20), Vector2(45, 80), Vector2(0, 112), Vector2(-45, 80), Vector2(-70, -20)])
+			seed.color = palette[2]
+			add_child(seed)
+		"landfill":
+			for index in range(7):
+				var block := ColorRect.new()
+				block.position = Vector2(430 + index * 65, 350 - (index % 3) * 58)
+				block.size = Vector2(88, 70)
+				block.rotation = (-0.16 + index * 0.05)
+				block.color = palette[2].darkened(float(index) * 0.045)
+				add_child(block)
 		_:
 			var potato := Polygon2D.new()
 			potato.position = Vector2(640, 300)
@@ -165,6 +262,10 @@ func _palette_for(category: String) -> Array[Color]:
 		"corporate": return [Color(0.07, 0.08, 0.11), Color(0.16, 0.18, 0.23), Color(1.0, 0.30, 0.22)]
 		"frost": return [Color(0.025, 0.10, 0.18), Color(0.10, 0.28, 0.42), Color(0.70, 0.93, 1.0)]
 		"root": return [Color(0.015, 0.025, 0.02), Color(0.04, 0.10, 0.07), Color(0.94, 0.76, 0.24)]
+		"crown": return [Color(0.09, 0.025, 0.12), Color(0.24, 0.06, 0.28), Color(0.86, 0.52, 0.94)]
+		"harvest": return [Color(0.035, 0.025, 0.015), Color(0.13, 0.085, 0.035), Color(0.72, 0.48, 0.20)]
+		"stillness": return [Color(0.035, 0.045, 0.055), Color(0.11, 0.13, 0.15), Color(0.76, 0.82, 0.84)]
+		"landfill": return [Color(0.07, 0.075, 0.035), Color(0.18, 0.20, 0.08), Color(0.70, 0.78, 0.27)]
 		_: return [Color(0.91, 0.93, 0.96), Color(0.98, 0.99, 1.0), Color(0.10, 0.08, 0.13)]
 
 

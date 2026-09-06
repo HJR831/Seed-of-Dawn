@@ -1,0 +1,7 @@
+Noto Serif CJK SC is distributed under the SIL Open Font License, Version 1.1.
+
+The full license text is available at:
+https://scripts.sil.org/OFL
+
+This project uses the font as the global Chinese UI typeface for the game
+"Dawn of the Sprout". The font file is unmodified.

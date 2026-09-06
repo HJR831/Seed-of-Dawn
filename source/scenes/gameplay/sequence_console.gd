@@ -13,9 +13,19 @@ var _progress := 0
 var _elapsed := 0.0
 var _complete := false
 var _labels: Array[Label] = []
+var _sprites: Array[Sprite2D] = []
+var _dark_texture: Texture2D
+var _lit_texture: Texture2D
+var _error_texture: Texture2D
 
 
 func _ready() -> void:
+	add_to_group(&"interactable")
+	var library := get_node_or_null("/root/AssetLibrary")
+	if library != null:
+		_dark_texture = library.get_texture(&"env_electric_node_dark.png")
+		_lit_texture = library.get_texture(&"env_electric_node_lit.png")
+		_error_texture = library.get_texture(&"env_electric_node_error.png")
 	for index in range(3):
 		_build_pad(index)
 	queue_redraw()
@@ -39,6 +49,14 @@ func register_node(index: int) -> bool:
 	if _complete:
 		return true
 	if index != EXPECTED_SEQUENCE[_progress]:
+		_show_error(index)
+		var effects := get_node_or_null("/root/ItemEffectDirector")
+		if effects != null and effects.has_method("has_effect") and effects.has_effect(&"bridge_charge") and _progress > 0:
+			_progress = maxi(_progress - 1, 0)
+			_elapsed = 0.0
+			_update_labels()
+			get_node("/root/AudioManager").play_sfx(&"effect_warning")
+			return false
 		_reset_sequence()
 		get_node("/root/AudioManager").play_sfx(&"ritual_error")
 		return false
@@ -72,6 +90,14 @@ func _build_pad(index: int) -> void:
 	label.text = ["I", "II", "III"][index]
 	area.add_child(label)
 	_labels.append(label)
+	var sprite := Sprite2D.new()
+	sprite.texture = _dark_texture
+	sprite.z_index = -1
+	if _dark_texture != null:
+		var extent := maxf(_dark_texture.get_size().x, _dark_texture.get_size().y)
+		sprite.scale = Vector2.ONE * (108.0 / maxf(extent, 1.0))
+	area.add_child(sprite)
+	_sprites.append(sprite)
 	area.body_entered.connect(func(body: Node2D) -> void:
 		if body.is_in_group(&"player"):
 			_current_pad = index
@@ -84,10 +110,9 @@ func _build_pad(index: int) -> void:
 
 
 func _draw() -> void:
-	for index in range(3):
-		var center := Vector2((index - 1) * node_spacing, 0.0)
-		draw_circle(center, 48.0, Color(0.88, 0.72, 0.20, 0.18))
-		draw_arc(center, 48.0, 0.0, TAU, 28, Color(0.92, 0.78, 0.32), 4.0)
+	# The numbered pads and their state textures are the only visual cue.
+	# Do not draw an extra circular interaction halo around them.
+	pass
 
 
 func _reset_sequence() -> void:
@@ -99,4 +124,15 @@ func _reset_sequence() -> void:
 func _update_labels() -> void:
 	for index in range(_labels.size()):
 		_labels[index].modulate = Color(1.0, 0.88, 0.38) if _complete else Color.WHITE
+		if index < _sprites.size() and is_instance_valid(_sprites[index]):
+			_sprites[index].texture = _lit_texture if _complete or index == _current_pad and _progress > 0 else _dark_texture
 
+
+func _show_error(index: int) -> void:
+	if _error_texture == null or index < 0 or index >= _sprites.size():
+		return
+	_sprites[index].texture = _error_texture
+	get_tree().create_timer(0.28).timeout.connect(func() -> void:
+		if index < _sprites.size() and is_instance_valid(_sprites[index]):
+			_sprites[index].texture = _dark_texture
+	)

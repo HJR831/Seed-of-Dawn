@@ -16,13 +16,20 @@ const REQUIRED_RESOURCES := [
 	"res://scenes/ui/debug_panel.tscn",
 	"res://scenes/ui/ending_screen.tscn",
 	"res://scenes/ui/inventory_panel.tscn",
+	"res://scenes/ui/map_panel.tscn",
+	"res://scenes/ui/guidance_overlay.tscn",
 	"res://tests/phase_20_endings_flow_test.tscn",
+	"res://tests/phase_32_39_test.tscn",
+	"res://tests/phase_32_endings_flow_test.tscn",
 ]
 
 const REQUIRED_SCRIPTS := [
 	"res://autoload/game_state.gd",
 	"res://autoload/audio_manager.gd",
 	"res://autoload/narrative_manager.gd",
+	"res://autoload/map_knowledge_manager.gd",
+	"res://autoload/guidance_director.gd",
+	"res://autoload/item_effect_director.gd",
 	"res://scenes/player/sprout.gd",
 	"res://scenes/gameplay/charge_barrier.gd",
 	"res://scenes/gameplay/sticky_area.gd",
@@ -39,7 +46,13 @@ const REQUIRED_SCRIPTS := [
 	"res://scenes/gameplay/counter_console.gd",
 	"res://scenes/gameplay/sequence_console.gd",
 	"res://scenes/gameplay/compressor_idle_ritual.gd",
+	"res://scenes/gameplay/stillness_command.gd",
+	"res://scenes/gameplay/directional_trial.gd",
 	"res://scenes/ui/inventory_panel.gd",
+	"res://scenes/ui/map_canvas.gd",
+	"res://scenes/ui/map_panel.gd",
+	"res://scenes/ui/guidance_overlay.gd",
+	"res://systems/world_chunk_manager.gd",
 	"res://scenes/ui/dialogue_box.gd",
 	"res://scenes/ui/debug_panel.gd",
 	"res://tests/basic_systems_test.gd",
@@ -50,6 +63,8 @@ const REQUIRED_SCRIPTS := [
 	"res://tests/procedural_map_test.gd",
 	"res://tests/phase_20_32_test.gd",
 	"res://tests/phase_20_endings_flow_test.gd",
+	"res://tests/phase_32_39_test.gd",
+	"res://tests/phase_32_endings_flow_test.gd",
 ]
 
 

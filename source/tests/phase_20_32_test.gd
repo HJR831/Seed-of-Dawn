@@ -10,7 +10,7 @@ func _ready() -> void:
 	await get_tree().physics_frame
 	var level := main.get_node_or_null("FridgeLevel")
 	if level == null:
-		_fail("主场景没有生成圆形关卡")
+		_fail("主场景没有生成自底向上的垂直关卡")
 		return
 	var bounds: Rect2 = level.get_world_bounds()
 	if bounds.size.x < 8192.0 or bounds.size.y < 8192.0:
@@ -47,7 +47,7 @@ func _ready() -> void:
 	if not game_state.rituals.has(&"root_node_sequence"):
 		_fail("ROOT 节点节拍没有完成")
 		return
-	print("PHASE 20-32 PASS: 圆形随机地图、背包、五条新入口、温控与 ROOT 节拍均已装载。")
+	print("PHASE 20-32 PASS: 25600 自底向上地图、背包、五条新入口、温控与 ROOT 节拍均已装载。")
 	get_tree().quit(0)
 
 
@@ -56,4 +56,3 @@ func _fail(message: String) -> void:
 	push_error(message)
 	print("PHASE 20-32 FAIL: %s" % message)
 	get_tree().quit(1)
-

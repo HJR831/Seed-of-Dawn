@@ -1,0 +1,7 @@
+rule_id,event_id,condition_tag,text_id,presentation,feedback_id,marker_target,marker_mode,clear_rule,cooldown,priority
+dragon_scale,item:golden_scale,,guide_dragon_echo,dialogue,golden_flash,dragon_shrine,sector,,0,50
+warm_receipt,item:flowerpot_receipt,,guide_warm_draft,dialogue,warm_wind,warm_door_gap,direction,,0,50
+sleeping_stone,item:sleeping_stone,,sleeping_stone_found,dialogue,frost,thermostat,sector,,0,50
+purple_label,item:hongsan_label,,purple_crown_label,dialogue,petal,,,0,45
+purple_petals,item:yellow_petals,,yellow_petals_found,dialogue,petal,hongsan_root,approximate,,0,55
+compost_read,item:compost_label,,compost_label_found,dialogue,landfill_noise,,,0,40

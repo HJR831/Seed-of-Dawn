@@ -16,10 +16,14 @@ config/features=PackedStringArray("4.7")
 
 [autoload]
 
+AssetLibrary="*res://autoload/asset_library.gd"
 GameState="*res://autoload/game_state.gd"
 ProgressState="*res://autoload/progress_state.gd"
 AudioManager="*res://autoload/audio_manager.gd"
 NarrativeManager="*res://autoload/narrative_manager.gd"
+MapKnowledgeManager="*res://autoload/map_knowledge_manager.gd"
+GuidanceDirector="*res://autoload/guidance_director.gd"
+ItemEffectDirector="*res://autoload/item_effect_director.gd"
 
 [display]
 
@@ -67,11 +71,23 @@ inventory={
 "deadzone": 0.5,
 "events": []
 }
+world_map={
+"deadzone": 0.5,
+"events": []
+}
 skip_text={
 "deadzone": 0.5,
 "events": []
 }
+sprint={
+"deadzone": 0.5,
+"events": []
+}
 debug_toggle={
+"deadzone": 0.5,
+"events": []
+}
+key_hints_toggle={
 "deadzone": 0.5,
 "events": []
 }

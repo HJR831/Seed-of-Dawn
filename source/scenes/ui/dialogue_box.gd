@@ -1,8 +1,10 @@
 extends CanvasLayer
 
+const PIXEL_UI := preload("res://scenes/ui/pixel_ui_theme.gd")
+
 @export var characters_per_second: float = 32.0
 
-var _panel: ColorRect
+var _panel: Panel
 var _speaker_label: Label
 var _text_label: Label
 var _full_text: String = ""
@@ -83,16 +85,17 @@ func _hide() -> void:
 
 
 func _build_ui() -> void:
-	_panel = ColorRect.new()
+	_panel = Panel.new()
 	_panel.position = Vector2(150, 540)
 	_panel.size = Vector2(980, 132)
-	_panel.color = Color(0.015, 0.022, 0.052, 0.91)
+	PIXEL_UI.apply_panel(_panel, Color(0.015, 0.022, 0.052, 0.94), Color(0.30, 0.24, 0.52), 4)
 	add_child(_panel)
 	_speaker_label = Label.new()
 	_speaker_label.position = Vector2(184, 556)
 	_speaker_label.size = Vector2(900, 28)
 	_speaker_label.add_theme_font_size_override("font_size", 17)
 	_speaker_label.add_theme_color_override("font_color", Color(0.70, 0.55, 0.94))
+	PIXEL_UI.apply_title(_speaker_label, Color(0.70, 0.55, 0.94))
 	add_child(_speaker_label)
 	_text_label = Label.new()
 	_text_label.position = Vector2(184, 590)

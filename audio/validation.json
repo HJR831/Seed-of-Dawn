@@ -1,0 +1,611 @@
+[
+  {
+    "id": "amb_fridge_compressor_loop",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": 0.001498417928814888,
+    "step_rms": 0.0004595898712010212
+  },
+  {
+    "id": "sfx_compressor_start",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.0008174429254537914
+  },
+  {
+    "id": "amb_fridge_cold_air_loop",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": 0.0018071439117193222,
+    "step_rms": 0.001784911646897128
+  },
+  {
+    "id": "music_mythic_ambience_loop",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": 0.0033912137150764465,
+    "step_rms": 0.00040399848512837636
+  },
+  {
+    "id": "music_titan_danger_layer",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": 0.001980716362595558,
+    "step_rms": 0.0002265755466678646
+  },
+  {
+    "id": "music_ending_solemn_sting",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.0025110738289723955
+  },
+  {
+    "id": "music_ending_comic_8bit",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.011478851593436883
+  },
+  {
+    "id": "music_ending_eldritch",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.0012094089327776094
+  },
+  {
+    "id": "music_ending_balcony_warm",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": 0.0016385186463594437,
+    "step_rms": 0.0005693643058843226
+  },
+  {
+    "id": "music_symbiosis_layer_01",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": 0.0035954229533672333,
+    "step_rms": 0.0008650446843736577
+  },
+  {
+    "id": "music_symbiosis_layer_02",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": 0.0033998116850852966,
+    "step_rms": 0.0008999166103891529
+  },
+  {
+    "id": "music_symbiosis_layer_03",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": 0.0028603002429008484,
+    "step_rms": 0.0012454177819838305
+  },
+  {
+    "id": "amb_eternal_frost_heartbeat_single",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.0006176988775685327
+  },
+  {
+    "id": "amb_eternal_frost_heartbeat_40bpm_loop",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": 0.0008121281862258911,
+    "step_rms": 0.0005295849791917683
+  },
+  {
+    "id": "amb_eternal_frost_heartbeat_20bpm_loop",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": 0.0010294548701494932,
+    "step_rms": 0.00037482141077063073
+  },
+  {
+    "id": "amb_eternal_frost_heartbeat_10bpm_loop",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": 0.0008104236330837011,
+    "step_rms": 0.00026460753959059766
+  },
+  {
+    "id": "amb_eternal_frost_heartbeat",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.0003349502704716053
+  },
+  {
+    "id": "music_root_pulse_loop",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": 0.0002710029948502779,
+    "step_rms": 0.00039239026868625375
+  },
+  {
+    "id": "music_credits_loop",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": 0.0007147267460823059,
+    "step_rms": 0.0008808227591275837
+  },
+  {
+    "id": "sfx_sprout_move_loop",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": 0.001336598303169012,
+    "step_rms": 0.0017853245995649153
+  },
+  {
+    "id": "sfx_sprout_move_stop",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.0013415751241962353
+  },
+  {
+    "id": "sfx_slime_enter_01",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.0037286364423146506
+  },
+  {
+    "id": "sfx_slime_enter_02",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.003060849594872657
+  },
+  {
+    "id": "sfx_slime_enter_03",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.003264015668257778
+  },
+  {
+    "id": "sfx_slime_exit_01",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.00430151022354957
+  },
+  {
+    "id": "sfx_slime_exit_02",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.004714512228641378
+  },
+  {
+    "id": "sfx_plastic_film_stretch_loop",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": 0.00652720034122467,
+    "step_rms": 0.004965238610252888
+  },
+  {
+    "id": "sfx_plastic_film_break_01",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.013259892027793084
+  },
+  {
+    "id": "sfx_plastic_film_break_02",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.013495052946885302
+  },
+  {
+    "id": "sfx_glass_tap_01",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.00551884761083445
+  },
+  {
+    "id": "sfx_glass_tap_02",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.005859968816688987
+  },
+  {
+    "id": "sfx_glass_tap_03",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.005320058074802593
+  },
+  {
+    "id": "sfx_glass_impact_01",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.005550206141538273
+  },
+  {
+    "id": "sfx_glass_impact_02",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.006237569898706037
+  },
+  {
+    "id": "sfx_frost_touch_01",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.007362593249126639
+  },
+  {
+    "id": "sfx_frost_touch_02",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.006940971332269504
+  },
+  {
+    "id": "sfx_frost_touch_03",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.006045856683259003
+  },
+  {
+    "id": "sfx_frost_absorb_01",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.005970986300476306
+  },
+  {
+    "id": "sfx_frost_absorb_02",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.007103327483310904
+  },
+  {
+    "id": "sfx_frost_absorb_03",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.008876841572968721
+  },
+  {
+    "id": "sfx_frost_absorb_04",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.012618379003989055
+  },
+  {
+    "id": "sfx_item_discover",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.0016908988418900491
+  },
+  {
+    "id": "sfx_item_absorb",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.0034864355658012127
+  },
+  {
+    "id": "sfx_milk_do",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.0012231994174516441
+  },
+  {
+    "id": "sfx_milk_re",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.001394533937128358
+  },
+  {
+    "id": "sfx_milk_mi",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.001581784743672814
+  },
+  {
+    "id": "sfx_dragon_chirp_01",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.007442165312781871
+  },
+  {
+    "id": "sfx_dragon_chirp_02",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.008790115289747167
+  },
+  {
+    "id": "sfx_dragon_chirp_03",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.009929015958898002
+  },
+  {
+    "id": "sfx_eldritch_eye_open_01",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.0015944694179703786
+  },
+  {
+    "id": "sfx_eldritch_eye_open_02",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.0017919774370362674
+  },
+  {
+    "id": "sfx_eldritch_eye_open_03",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.0022633347960216766
+  },
+  {
+    "id": "sfx_ritual_step_01",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.0026775958571307414
+  },
+  {
+    "id": "sfx_ritual_step_02",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.0032891910824058923
+  },
+  {
+    "id": "sfx_ritual_step_03",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.004026795755213759
+  },
+  {
+    "id": "sfx_ritual_step_04",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.005602702544893954
+  },
+  {
+    "id": "sfx_ritual_error",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.0005908539508383179
+  },
+  {
+    "id": "sfx_condensation_pickup_01",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.004303204123293025
+  },
+  {
+    "id": "sfx_condensation_pickup_02",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.0047722214379187665
+  },
+  {
+    "id": "sfx_companion_onion_wake",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.0013582783040091764
+  },
+  {
+    "id": "sfx_companion_garlic_wake",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.0016651271109028596
+  },
+  {
+    "id": "sfx_companion_ginger_wake",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.002159070607435982
+  },
+  {
+    "id": "sfx_barcode_scan_01",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.011632049076486356
+  },
+  {
+    "id": "sfx_barcode_scan_02",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.012284983052346748
+  },
+  {
+    "id": "sfx_electric_node_ok_01",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.001379258115812645
+  },
+  {
+    "id": "sfx_electric_node_ok_02",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.0017167309540226223
+  },
+  {
+    "id": "sfx_electric_node_ok_03",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.0020620766863177513
+  },
+  {
+    "id": "sfx_electric_node_error",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.00044459115395442406
+  },
+  {
+    "id": "sfx_circuit_connected",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.0019208872374654779
+  },
+  {
+    "id": "sfx_thermostat_click",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.0056062808830091605
+  },
+  {
+    "id": "sfx_thermostat_click_seventh",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.004155948951555287
+  },
+  {
+    "id": "sfx_owner_step_far",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 9.550106029391249e-05
+  },
+  {
+    "id": "sfx_owner_step_mid",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.0001926846992366827
+  },
+  {
+    "id": "sfx_owner_step_near",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.000605533882568129
+  },
+  {
+    "id": "sfx_fridge_door_rumble_01",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.000883830623918718
+  },
+  {
+    "id": "sfx_fridge_door_rumble_02",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.0009566043137984555
+  },
+  {
+    "id": "sfx_fridge_door_open",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.005738802791560169
+  },
+  {
+    "id": "sfx_takeout_lid_click",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.008716393836963297
+  },
+  {
+    "id": "sfx_light_switch_press",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.004901762835925875
+  },
+  {
+    "id": "sfx_trash_bag_rustle_01",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.015540248552490182
+  },
+  {
+    "id": "sfx_trash_bag_rustle_02",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.014300906656660147
+  },
+  {
+    "id": "sfx_trash_bag_rustle_03",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.014908141029894972
+  },
+  {
+    "id": "sfx_trash_bag_drop",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.0030538420269729093
+  },
+  {
+    "id": "amb_landfill_rain_loop",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": 0.0028141491347923875,
+    "step_rms": 0.005088118434841537
+  },
+  {
+    "id": "amb_balcony_wind_birds_loop",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": 0.0024750493466854095,
+    "step_rms": 0.0011632167432637662
+  },
+  {
+    "id": "sfx_kpi_report_complete",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.008341039420386468
+  },
+  {
+    "id": "sfx_root_access_granted",
+    "format_ok": true,
+    "loop_seam_ok": true,
+    "seam_amplitude": null,
+    "step_rms": 0.002189966868483547
+  }
+]

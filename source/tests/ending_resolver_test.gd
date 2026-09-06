@@ -77,6 +77,47 @@ func _init() -> void:
 	incomplete_root.items.erase(&"magnet_core")
 	_expect_failure(&"temperature_probe", incomplete_root, "缺少磁芯仍触发 ROOT 权限", failures)
 
+	var purple := _snapshot()
+	purple.items = {&"hongsan_label": true, &"yellow_petals": true}
+	purple.counters = {&"clean_water_count": 1, &"thermostat_level": 4}
+	purple.flags = {&"hongsan_root_helped": true, &"heard_bell": true, &"faced_warm_light": true}
+	purple.rituals = {&"purple_crown_connection": true}
+	_expect(&"hongsan_root_link", purple, EndingIdsScript.PURPLE_CROWN, failures)
+	var frozen_purple := purple.duplicate(true)
+	frozen_purple.counters[&"thermostat_level"] = 7
+	_expect_failure(&"hongsan_root_link", frozen_purple, "温控第七格仍触发紫冠结局", failures)
+
+	var harvest := _snapshot()
+	harvest.items = {&"sprout_nodule_1": true, &"sprout_nodule_2": true, &"sprout_nodule_3": true, &"clean_nutrient": true}
+	harvest.counters = {&"planted_site_count": 3, &"lid_open_count": 0}
+	harvest.flags = {&"returned_to_mother": true, &"sustained_downward": true}
+	_expect(&"mother_soil", harvest, EndingIdsScript.DARK_HARVEST, failures)
+	var missing_nodule := harvest.duplicate(true)
+	missing_nodule.items.erase(&"sprout_nodule_3")
+	_expect_failure(&"mother_soil", missing_nodule, "缺少芽眼结节仍触发黑暗丰收", failures)
+
+	var stillness := _snapshot()
+	stillness.flags = {&"tutorial_complete": true, &"returned_to_start": true}
+	stillness.counters = {&"narrator_refusal_count": 3}
+	_expect(&"self_prune", stillness, EndingIdsScript.NOT_GROWING_TODAY, failures)
+	var fed_stillness := stillness.duplicate(true)
+	fed_stillness.devour = 1
+	_expect_failure(&"self_prune", fed_stillness, "已经吞噬仍触发拒绝生长", failures)
+	var watered_stillness := stillness.duplicate(true)
+	watered_stillness.items = {&"clean_water_1": true}
+	_expect_failure(&"self_prune", watered_stillness, "取得滋养物仍触发拒绝生长", failures)
+
+	var landfill := _snapshot()
+	landfill.noise = 6
+	landfill.destruction = 5
+	landfill.corruption = 3
+	landfill.counters = {&"bottle_hit_count": 3, &"lid_hit_count": 3, &"film_broken_count": 3}
+	landfill.flags = {&"black_water_absorbed": true}
+	_expect(&"forced_cleanup", landfill, EndingIdsScript.LANDFILL_KING, failures)
+	var kind_landfill := landfill.duplicate(true)
+	kind_landfill.nurture = 1
+	_expect_failure(&"forced_cleanup", kind_landfill, "帮助同伴后仍触发垃圾王结局", failures)
+
 	# 唯一入口消解冲突：即使携带两套配方，顶盖仍只回退到默认结局。
 	var conflict := eldritch.duplicate(true)
 	conflict.items[&"golden_scale"] = true
@@ -85,7 +126,7 @@ func _init() -> void:
 	_expect(&"top_lid", conflict, EndingIdsScript.FOOD_FAILURE, failures)
 
 	if failures.is_empty():
-		print("ENDING RESOLVER PASS: 前八结局正向、缺条件和冲突测试均通过。")
+		print("ENDING RESOLVER PASS: 十二结局正向、缺条件和冲突测试均通过。")
 		quit(0)
 	else:
 		for failure in failures:

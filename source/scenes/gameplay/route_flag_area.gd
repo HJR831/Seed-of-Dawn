@@ -2,6 +2,9 @@ extends Area2D
 
 @export var flag_id: StringName = &"route_flag"
 @export var required_flag: StringName = &""
+@export var required_counter_id: StringName = &""
+@export var required_counter_minimum: int = 0
+@export var narrative_text_id: StringName = &""
 @export var area_size := Vector2(260.0, 220.0)
 @export var visible_marker: bool = false
 
@@ -31,5 +34,10 @@ func _on_body_entered(body: Node2D) -> void:
 		return
 	if not required_flag.is_empty() and not game_state.has_flag(required_flag):
 		return
+	if not required_counter_id.is_empty() and game_state.get_counter(required_counter_id) < required_counter_minimum:
+		return
 	game_state.set_flag(flag_id)
-
+	if not narrative_text_id.is_empty():
+		var narrative := get_node_or_null("/root/NarrativeManager")
+		if narrative != null:
+			narrative.request_text(narrative_text_id)

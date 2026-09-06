@@ -1,0 +1,11 @@
+Dawn of the Sprout — Internal Test Build License
+
+Copyright (c) 2026 Dawn of the Sprout team.
+
+This build and its source/assets are provided to the project team for development,
+review, QA, and internal playtesting only. Team members may copy the package for
+those purposes. Public redistribution, resale, sublicensing, or bundling the assets
+into another project requires written permission from the project owner.
+
+Third-party components remain under their own licenses. See THIRD_PARTY_LICENSES.md
+and the license file shipped beside the Noto Serif CJK font.

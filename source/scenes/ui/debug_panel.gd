@@ -1,12 +1,18 @@
 extends CanvasLayer
 
+const PIXEL_UI := preload("res://scenes/ui/pixel_ui_theme.gd")
+const ASSET_GALLERY := preload("res://scenes/ui/asset_debug_gallery.gd")
+const POINT_TELEPORTER := preload("res://scenes/ui/asset_point_teleporter.gd")
 const STAGE_POSITIONS := [
-	Vector2(360, 7350), Vector2(2100, 5300), Vector2(360, 4100), Vector2(2140, 1850), Vector2(1280, 700)
+	Vector2(12800, 23200), Vector2(12800, 19600), Vector2(12800, 16000), Vector2(12800, 12800),
+	Vector2(12800, 9000), Vector2(12800, 5200), Vector2(12800, 1800)
 ]
 
 var _root_panel: PanelContainer
 var _state_label: Label
 var _update_elapsed: float = 0.0
+var _asset_gallery
+var _point_teleporter
 
 
 func _ready() -> void:
@@ -14,6 +20,14 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_build_panel()
 	_root_panel.visible = false
+
+
+func unlock_and_open() -> void:
+	## Called only after the F3 developer UID has been verified.
+	if not OS.is_debug_build() or not is_instance_valid(_root_panel):
+		return
+	_root_panel.visible = true
+	_refresh_state()
 
 
 func _process(delta: float) -> void:
@@ -26,18 +40,23 @@ func _process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not OS.is_debug_build() or not event.is_action_pressed(&"debug_toggle"):
+	if not OS.is_debug_build():
 		return
-	_root_panel.visible = not _root_panel.visible
-	if _root_panel.visible:
-		_refresh_state()
-	get_viewport().set_input_as_handled()
+	if is_instance_valid(_point_teleporter) and _point_teleporter.visible and event.is_action_pressed(&"pause"):
+		_close_point_teleporter()
+		get_viewport().set_input_as_handled()
+		return
+	if is_instance_valid(_asset_gallery) and _asset_gallery.visible and event.is_action_pressed(&"pause"):
+		_close_asset_gallery()
+		get_viewport().set_input_as_handled()
+		return
 
 
 func _build_panel() -> void:
 	_root_panel = PanelContainer.new()
-	_root_panel.position = Vector2(770, 28)
-	_root_panel.size = Vector2(480, 664)
+	_root_panel.position = Vector2(770, 8)
+	_root_panel.size = Vector2(480, 704)
+	PIXEL_UI.apply_panel(_root_panel, Color(0.012, 0.020, 0.044, 0.98), Color(0.30, 0.42, 0.60), 4)
 	add_child(_root_panel)
 	var margin := MarginContainer.new()
 	margin.add_theme_constant_override("margin_left", 18)
@@ -49,12 +68,13 @@ func _build_panel() -> void:
 	content.add_theme_constant_override("separation", 8)
 	margin.add_child(content)
 	var title := Label.new()
-	title.text = "DEBUG · 本局状态（F3 关闭）"
+	title.text = "TEST HARNESS · 本局状态"
 	title.add_theme_font_size_override("font_size", 22)
+	PIXEL_UI.apply_title(title)
 	content.add_child(title)
 	_state_label = Label.new()
-	_state_label.custom_minimum_size = Vector2(430, 180)
-	_state_label.add_theme_font_size_override("font_size", 16)
+	_state_label.custom_minimum_size = Vector2(430, 150)
+	_state_label.add_theme_font_size_override("font_size", 13)
 	content.add_child(_state_label)
 	var teleport_title := Label.new()
 	teleport_title.text = "快速传送"
@@ -65,6 +85,7 @@ func _build_panel() -> void:
 		var button := Button.new()
 		button.text = str(index + 1)
 		button.pressed.connect(_teleport.bind(index))
+		PIXEL_UI.apply_button(button)
 		teleports.add_child(button)
 	var actions_title := Label.new()
 	actions_title.text = "快速修改"
@@ -72,6 +93,10 @@ func _build_panel() -> void:
 	var actions := GridContainer.new()
 	actions.columns = 3
 	content.add_child(actions)
+	_add_button(actions, "素材检查总览", _open_asset_gallery)
+	_add_button(actions, "素材点传送", _open_point_teleporter)
+	_add_button(actions, "VFX 古神", _preview_feedback.bind(&"eldritch_eye"))
+	_add_button(actions, "VFX 霜冻", _preview_feedback.bind(&"eldritch_frost"))
 	_add_button(actions, "+ 腐败之眼", _add_item.bind(&"corrupt_eye"))
 	_add_button(actions, "+ 牛奶滴", _add_counter.bind(&"milk_count"))
 	_add_button(actions, "+ 霜晶", _add_counter.bind(&"frost_count"))
@@ -86,6 +111,11 @@ func _build_panel() -> void:
 	_add_button(actions, "给予无限增长配方", _grant_growth_recipe)
 	_add_button(actions, "给予永冬配方", _grant_frost_recipe)
 	_add_button(actions, "给予 ROOT 配方", _grant_root_recipe)
+	_add_button(actions, "给予紫冠配方", _grant_purple_crown_recipe)
+	_add_button(actions, "给予黑暗丰收配方", _grant_dark_harvest_recipe)
+	_add_button(actions, "给予拒绝生长配方", _grant_stillness_recipe)
+	_add_button(actions, "给予垃圾王配方", _grant_landfill_recipe)
+	_add_button(actions, "到 01 盒盖出口", _teleport_location.bind(&"final_lid"))
 	_add_button(actions, "到 02 伪太阳", _teleport_location.bind(&"light_switch"))
 	_add_button(actions, "到 03 小龙旧像", _teleport_location.bind(&"dragon_shrine"))
 	_add_button(actions, "到 04 暖门缝", _teleport_location.bind(&"warm_door_gap"))
@@ -93,10 +123,21 @@ func _build_panel() -> void:
 	_add_button(actions, "到 06 条码终端", _teleport_location.bind(&"barcode_terminal"))
 	_add_button(actions, "到 07 冷冻凹槽", _teleport_location.bind(&"freezer_alcove"))
 	_add_button(actions, "到 08 温控探针", _teleport_location.bind(&"temperature_probe"))
+	_add_button(actions, "到 09 紫冠连接", _teleport_location.bind(&"hongsan_link"))
+	_add_button(actions, "到 10 母薯黑土", _teleport_location.bind(&"mother_soil"))
+	_add_button(actions, "到 11 自我剪芽", _teleport_location.bind(&"self_prune"))
+	_add_button(actions, "到 12 清理区域", _teleport_location.bind(&"cleanup_zone"))
 	_add_button(actions, "同种子重开", _restart_with_seed.bind(true))
 	_add_button(actions, "新种子重开", _restart_with_seed.bind(false))
 	_add_button(actions, "重置本局", _reset_run)
 	_add_button(actions, "清空结局图鉴", _clear_progress)
+	_asset_gallery = ASSET_GALLERY.new()
+	_asset_gallery.closed.connect(_close_asset_gallery)
+	add_child(_asset_gallery)
+	_point_teleporter = POINT_TELEPORTER.new()
+	_point_teleporter.closed.connect(_close_point_teleporter)
+	_point_teleporter.teleport_requested.connect(_teleport_asset_point)
+	add_child(_point_teleporter)
 
 
 func _refresh_state() -> void:
@@ -110,8 +151,8 @@ func _refresh_state() -> void:
 		"milk %d  frost %d  barcode %d\n" +
 		"compressor %d  bottle hits %d  lid hits %d\n" +
 		"items: %s\nflags: %s\nrituals: %s\n" +
-		"seed %d · sectors %d · attempt %d · fallback %s\n" +
-		"ending entrances: 01–08\n" +
+		"seed %d · rings %d · sectors %d · attempt %d · fallback %s\n" +
+		"ending entrances: 01–12\n" +
 		"last failed attempt: %s"
 	) % [
 		game_state.devour, game_state.nurture, game_state.noise,
@@ -120,7 +161,7 @@ func _refresh_state() -> void:
 		game_state.get_counter(&"barcode_count"), game_state.get_counter(&"compressor_start_count"),
 		game_state.get_counter(&"bottle_hit_count"), game_state.get_counter(&"lid_hit_count"),
 		str(game_state.items.keys()), str(game_state.flags.keys()), str(game_state.rituals.keys()),
-		game_state.run_seed, int(_generation_summary().get("sector_count", 0)), int(_generation_summary().get("attempt", 0)), str(_generation_summary().get("used_fallback", false)),
+		game_state.run_seed, int(_generation_summary().get("ring_count", 0)), int(_generation_summary().get("sector_count", 0)), int(_generation_summary().get("attempt", 0)), str(_generation_summary().get("used_fallback", false)),
 		str(game_state.has_flag(&"ending_attempt_failed"))
 	]
 
@@ -238,6 +279,50 @@ func _grant_root_recipe() -> void:
 	game_state.complete_ritual(&"root_node_sequence")
 
 
+func _grant_purple_crown_recipe() -> void:
+	var game_state := get_node("/root/GameState")
+	for item_id in [&"hongsan_label", &"yellow_petals", &"clean_water_1"]:
+		game_state.collect_item(item_id)
+	game_state.increment_counter(&"clean_water_count", maxi(1 - game_state.get_counter(&"clean_water_count"), 0))
+	for flag_id in [&"hongsan_root_helped", &"heard_bell", &"faced_warm_light"]:
+		game_state.set_flag(flag_id)
+	game_state.set_flag(&"hongsan_root_devoured", false)
+	game_state.increment_counter(&"thermostat_level", -game_state.get_counter(&"thermostat_level"))
+	game_state.complete_ritual(&"purple_crown_connection")
+
+
+func _grant_dark_harvest_recipe() -> void:
+	var game_state := get_node("/root/GameState")
+	for item_id in [&"sprout_nodule_1", &"sprout_nodule_2", &"sprout_nodule_3", &"clean_nutrient"]:
+		game_state.collect_item(item_id)
+	game_state.increment_counter(&"planted_site_count", maxi(3 - game_state.get_counter(&"planted_site_count"), 0))
+	game_state.increment_counter(&"lid_open_count", -game_state.get_counter(&"lid_open_count"))
+	game_state.set_flag(&"returned_to_mother")
+	game_state.set_flag(&"sustained_downward")
+
+
+func _grant_stillness_recipe() -> void:
+	var game_state := get_node("/root/GameState")
+	game_state.set_flag(&"tutorial_complete")
+	game_state.set_flag(&"returned_to_start")
+	game_state.increment_counter(&"narrator_refusal_count", maxi(3 - game_state.get_counter(&"narrator_refusal_count"), 0))
+	game_state.add_stat(&"devour", -game_state.devour)
+	game_state.add_stat(&"destruction", -game_state.destruction)
+	game_state.optional_nutrients_eaten = 0
+
+
+func _grant_landfill_recipe() -> void:
+	var game_state := get_node("/root/GameState")
+	game_state.increment_counter(&"bottle_hit_count", maxi(3 - game_state.get_counter(&"bottle_hit_count"), 0))
+	game_state.increment_counter(&"lid_hit_count", maxi(3 - game_state.get_counter(&"lid_hit_count"), 0))
+	game_state.increment_counter(&"film_broken_count", maxi(3 - game_state.get_counter(&"film_broken_count"), 0))
+	game_state.add_stat(&"noise", maxi(6 - game_state.noise, 0))
+	game_state.add_stat(&"destruction", maxi(5 - game_state.destruction, 0))
+	game_state.add_stat(&"corruption", maxi(3 - game_state.corruption, 0))
+	game_state.add_stat(&"nurture", -game_state.nurture)
+	game_state.set_flag(&"black_water_absorbed")
+
+
 func _generation_summary() -> Dictionary:
 	var level := get_parent()
 	return level.get_generation_summary() if level.has_method("get_generation_summary") else {}
@@ -261,9 +346,45 @@ func _clear_progress() -> void:
 	get_node("/root/ProgressState").clear_unlocked_endings()
 
 
+func _open_asset_gallery() -> void:
+	_root_panel.visible = false
+	_asset_gallery.set_open(true)
+
+
+func _close_asset_gallery() -> void:
+	_asset_gallery.set_open(false)
+	_root_panel.visible = true
+	_refresh_state()
+
+
+func _open_point_teleporter() -> void:
+	_root_panel.visible = false
+	_point_teleporter.configure(get_parent())
+	_point_teleporter.set_open(true)
+
+
+func _close_point_teleporter() -> void:
+	_point_teleporter.set_open(false)
+	_root_panel.visible = true
+	_refresh_state()
+
+
+func _teleport_asset_point(world_position: Vector2, _point_id: StringName) -> void:
+	_teleport_exact(world_position)
+	_point_teleporter.set_open(false)
+	_root_panel.visible = false
+
+
+func _preview_feedback(feedback_id: StringName) -> void:
+	var overlay := get_tree().get_first_node_in_group(&"guidance_overlay")
+	if overlay != null and overlay.has_method("debug_play_feedback"):
+		overlay.debug_play_feedback(feedback_id)
+
+
 func _add_button(parent: Control, label_text: String, callback: Callable) -> void:
 	var button := Button.new()
 	button.text = label_text
-	button.custom_minimum_size = Vector2(136, 34)
+	button.custom_minimum_size = Vector2(136, 28)
+	PIXEL_UI.apply_button(button)
 	button.pressed.connect(callback)
 	parent.add_child(button)
